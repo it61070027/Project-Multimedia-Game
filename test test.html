@@ -32,15 +32,15 @@
             }
             var size = 20; //ขนาดบล็อคตัวงู
             var key_p = undefined;
-            var snake = [{x:canvas.width/2, y:canvas.height/2}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
+            var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
             var food = { //สุ่มเกิดอาหาร
                 x:Math.floor(Math.random()*24+1)*size, 
                 y:Math.floor(Math.random()*24+1)*size
             }
             for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
                 snake.push({
-                    x:canvas.width/2,
-                    y:(canvas.height/2)+(i*size)
+                    x:canvas.width/2-10,
+                    y:(canvas.height/2-10)+(i*size)
                 })
             }
             window.addEventListener('keydown', function(event){ // รับค่าkeyborad
