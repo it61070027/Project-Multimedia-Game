@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>test snake</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #myCanvas{ 
+            border: 1px solid;
+            background-color: #f1f1f1;
+            position: absolute;
+            top: 10%;
+            left: 30%;
+            margin-top: auto;
+            margin-left: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" height="500";
+        width="500";>
+        </canvas>
+        <script>
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            var key = { //กำหนดตค่าปุ่มเริ่มต้น
+                move:undefined
+            }
+            var size = 25; //ขนาดบล็อคตัวงู
+            var key_p;
+            var snake = [{x:canvas.width/2, y:canvas.height/2}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
+            var food = { //สุ่มเกิดอาหาร
+                x:Math.floor(Math.random()*19+1)*25, 
+                y:Math.floor(Math.random()*19+1)*25
+            }
+            for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
+                snake.push({
+                    x:canvas.width/2,
+                    y:(canvas.height/2)+(i*size)
+                })
+            }
+            window.addEventListener('keydown', function(event){ // รับค่าkeyborad
+                key.move= String.fromCharCode(event.keyCode); //ให้ค่าที่รับกลายเป็นstr
+                console.log(key.move);
+                if (key.move == "W" && key_p != "S") key_p = "W"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
+                else if (key.move == "S" && key_p != "W") key_p = "S"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
+                else if (key.move == "A" && key_p != "D") key_p = "A"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
+                else if (key.move == "D" && key_p != "A") key_p = "D"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
+            })
+            function draw(){ //สร้างงู
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
+                    ctx.fillStyle = "red";
+                    ctx.fillRect(snake[i].x, snake[i].y, size, size);
+                    ctx.strokeRect(snake[i].x, snake[i].y, size, size);
+                }
+                    ctx.fillStyle = "black"; //สร้างอาหาร
+                    ctx.fillRect(food.x, food.y, size, size);
+                    ctx.strokeRect(food.x, food.y, size, size);
+                let newx = snake[0].x; // ให้พิกัดใหม่มีค่าเท่ากับหัวงู
+                let newy = snake[0].y;
+                
+                if (this.key_p == "A") newx -= this.size; // บวกพิกัดใหม่เพิ่มตามค่า w a s d
+                if (this.key_p == "S") newy += this.size; // บวกพิกัดใหม่เพิ่มตามค่า w a s d
+                if (this.key_p == "D") newx += this.size; // บวกพิกัดใหม่เพิ่มตามค่า w a s d
+                if (this.key_p == "W") newy -= this.size; // บวกพิกัดใหม่เพิ่มตามค่า w a s d
+
+                newx = (newx >= canvas.width?0:newx < 0?canvas.width:newx); //ถ้างูชนกำแพงงูจะวาปมากำแพงตรงข้ามในแนวแกน x
+                newy = (newy >= canvas.height?0:newy < 0?canvas.height:newy); //ถ้างูชนกำแพงงูจะวาปมากำแพงตรงข้ามในแนวแกน y
+                if (newx != snake[0].x || newy != snake[0].y){ 
+                    for (let i = 1; i < snake.length; i++){ //เช็คว่างูชนรึยัง
+                    if(newx == snake[i].x && newy == snake[i].y){
+                        ctx.fillStyle = "green";
+                        ctx.fillRect(snake[i].x, snake[i].y, size, size);
+                        ctx.strokeRect(snake[i].x, snake[i].y, 25, 25);
+                        clearInterval(game);
+                        }
+                    }
+
+                }
+
+                if(newx == food.x && newy == food.y){ //ถ้างูกินอาหารแล้วอาหารจะถูกสุ่มเกิดใหม่
+                    food = { 
+                    x:Math.floor(Math.random()*19+1)*25,
+                    y:Math.floor(Math.random()*19+1)*25
+                    }}
+                else{
+                    if (newx != snake[0].x || newy != snake[0].y){
+                    snake.pop();} //แล้วงูไม่กินอาหารหางจะหาย 
+                }
+                if (newx != snake[0].x || newy != snake[0].y){
+                snake.unshift({ //เพิ่มส่วนหัว (ถ้างูกินอาหารส่วนหางจะไม่ถูกตัดทำให้งูยาวขึ้น)
+                    x:newx,
+                    y:newy
+                });}
+                
+                
+                
+                
+                
+            }
+            let game = setInterval(draw,100);
+            
+        </script>
+    </body>
+</html>
