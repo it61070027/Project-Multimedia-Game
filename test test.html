@@ -27,7 +27,7 @@
                 move:undefined
             }
             var size = 25; //ขนาดบล็อคตัวงู
-            var key_p;
+            var key_p = undefined;
             var snake = [{x:canvas.width/2, y:canvas.height/2}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
             var food = { //สุ่มเกิดอาหาร
                 x:Math.floor(Math.random()*19+1)*25, 
@@ -43,7 +43,7 @@
                 key.move= String.fromCharCode(event.keyCode); //ให้ค่าที่รับกลายเป็นstr
                 console.log(key.move);
                 if (key.move == "W" && key_p != "S") key_p = "W"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
-                else if (key.move == "S" && key_p != "W") key_p = "S"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
+                else if (key.move == "S" && key_p != "W" && key_p != undefined) key_p = "S"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
                 else if (key.move == "A" && key_p != "D") key_p = "A"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
                 else if (key.move == "D" && key_p != "A") key_p = "D"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
             })
