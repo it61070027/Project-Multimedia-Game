@@ -28,6 +28,7 @@
             var canvas = document.getElementById("myCanvas");
             var ctx = canvas.getContext("2d");
             var count = 0;
+            var casebomb = "on";
             var key = { //กำหนดตค่าปุ่มเริ่มต้น
                 move:undefined
             }
@@ -122,11 +123,23 @@
                     ctx.strokeRect(this.bombx, this.bomby, size, size); //สร้างขอบ
                 }
             count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
-            if (count%5 == 0) spawn_b(); // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
+            if (count%6 == 0){ // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
+                if (casebomb == "on"){
+                    spawn_b();
+                    casebomb = "off";
+                }
+                else{
+                    this.bombx = undefined;
+                    this.bomby = undefined;
+                    casebomb = "on";
+                }
+            
+            
+            }
             drawFood();//เรียกฟังชั้นวาดอาหาร
             drawBomb();//เรียกฟังชั้นวาดระเบิด
             }
-            let game = setInterval(draw,100);
+            let game = setInterval(draw,75);
             /*let boom = setInterval(
 			    function(){
                 ctx.shadowColor = "yellow";
