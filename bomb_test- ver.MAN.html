@@ -28,6 +28,7 @@
             var canvas = document.getElementById("myCanvas");
             var ctx = canvas.getContext("2d");
             var count = 0;
+            var bombkill = "off";
             var casebomb = "on";//ตั้งค่าจุดระเบิด
             var boomset = "off";//ตั้งระเบิดจะระเบิด
             var timebomb = 0;//เซตเวลาระเบิด
@@ -58,10 +59,11 @@
             }
             window.addEventListener('keydown', function(event){ // รับค่าkeyborad
                 key.move= String.fromCharCode(event.keyCode); //ให้ค่าที่รับกลายเป็นstr
-                console.log(key.move);
             })
             function draw(){ //ฟังชั่นในการสร้างภาพทั้งหมด
-       
+                if ((snake[0].x == this.bombx || snake[0].y == this.bomby) && bombkill == "on"){ //โดนระเบิดตาย
+                        clearInterval(game); //หยุดการทำงาน
+                }
                 if (key.move == "W" && key_p != "S") key_p = "W"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
                 else if (key.move == "S" && key_p != "W" && key_p != undefined) key_p = "S"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
                 else if (key.move == "A" && key_p != "D") key_p = "A"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
@@ -94,7 +96,7 @@
                 newx = (newx >= canvas.width?0:newx < 0?canvas.width:newx); //ถ้างูชนกำแพงงูจะวาปมากำแพงตรงข้ามในแนวแกน x
                 newy = (newy >= canvas.height?0:newy < 0?canvas.height:newy); //ถ้างูชนกำแพงงูจะวาปมากำแพงตรงข้ามในแนวแกน y
                 if (newx != snake[0].x || newy != snake[0].y){
-                    for (let i = 1; i < snake.length; i++){ //เช็คว่างูชนรึยัง
+                    for (let i = 0; i < snake.length; i++){ //เช็คว่างูชนรึยัง
                     if(newx == snake[i].x && newy == snake[i].y){
                         ctx.fillStyle = "green";
                         ctx.fillRect(snake[i].x, snake[i].y, size, size);
@@ -111,7 +113,7 @@
                     y:Math.floor(Math.random()*24+1)*size
                     }}
                 else{
-                    if (newx != snake[0].x || newy != snake[0].y){
+                    if ((newx != snake[0].x || newy != snake[0].y) && snake.length != 1){
                     snake.pop();} //แล้วงูไม่กินอาหารหางจะหาย
                 }
                 if (newx != snake[0].x || newy != snake[0].y){
@@ -136,45 +138,45 @@
                     ctx.strokeRect(0, boom.y, canvas.width, size);
                     ctx.strokeRect(boom.x, 0, size, canvas.height);
                 }
-            count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
-            if (count%6 == 0){ // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
-                if (casebomb == "on"){
-                    spawn_b();
-                    boomset = "on"
-                    casebomb = "off";
-                    timebomb = 0;    
+                count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
+                if (count%6 == 0){ // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
+                    if (casebomb == "on"){
+                        spawn_b();
+                        boomset = "on"
+                        casebomb = "off";
+                        timebomb = 0;    
+                    }
+                    else{
+                        this.bombx = undefined;
+                        this.bomby = undefined;
+                        casebomb = "on";
+                        boomset = "on";
+                    }
                 }
-                else{
-                    this.bombx = undefined;
-                    this.bomby = undefined;
-                    casebomb = "on";
-                    boomset = "on";
+                if (boomset == "on"){
+                    if(timebomb == 4.5 || this.bombx == undefined){//นับเวลาระเบิดหรือระเบิดหาย
+                        boom.x = this.bombx;
+                        boom.y = this.bomby;
+                        boomset = "off";
+                        if (this.bombx != undefined) bombkill = "on";
+                        else bombkill = "off";
+
+                    }
+                    timebomb = (timebomb*10 + 0.1*10) /10;  //เวลาระเบิด
                 }
-            }
-            if (boomset == "on"){
-                if(timebomb == 4.5 || this.bombx == undefined){//นับเวลาระเบิดหรือระเบิดหาย
-                    boom.x = this.bombx;
-                    boom.y = this.bomby;
-                    boomset = "off";
+                if (bombkill == "on"){
+                    for (let i = 1; i < snake.length; i++){ //เช็คว่างูชนรึยัง
+                    if(this.bombx == snake[i].x || this.bomby == snake[i].y){
+                        snake = snake.slice(0, i);
+                        }
+                    }
+
                 }
-                timebomb = (timebomb*10 + 0.1*10) /10;  //เวลาระเบิด
-            }
-            
             drawFood();//เรียกฟังชั้นวาดอาหาร
             drawBomb();//เรียกฟังชั้นวาดระเบิด
             drawBoom();//เรียกฟังชั้นวาดแรงระเบิด
             }
             let game = setInterval(draw,75);
-            /*let boom = setInterval(
-			    function(){
-                ctx.shadowColor = "yellow";
-                ctx.shadowBlur = 10;
-                ctx.fillStyle = "yellow";
-                ctx.fillRect(bomb.x, bomb.y, canvas.width, size);
-                ctx.fillRect(bomb.x, bomb.y, size, canvas.height);
-                ctx.strokeRect(bomb.x, bomb.y, canvas.width, size);
-                ctx.strokeRect(bomb.x, bomb.y, size, canvas.height);
-				},3000);*/
         </script>
     </body>
 </html>
