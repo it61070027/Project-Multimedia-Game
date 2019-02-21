@@ -97,7 +97,7 @@
                 newy = (newy >= canvas.height?0:newy < 0?canvas.height:newy); //ถ้างูชนกำแพงงูจะวาปมากำแพงตรงข้ามในแนวแกน y
                 if (newx != snake[0].x || newy != snake[0].y){
                     for (let i = 0; i < snake.length; i++){ //เช็คว่างูชนรึยัง
-                    if(newx == snake[i].x && newy == snake[i].y){
+                    if((newx == snake[i].x && newy == snake[i].y)|| (newx == this.bombx && newy == this.bomby)){
                         ctx.fillStyle = "green";
                         ctx.fillRect(snake[i].x, snake[i].y, size, size);
                         ctx.strokeRect(snake[i].x, snake[i].y, size, size);
@@ -154,7 +154,7 @@
                     }
                 }
                 if (boomset == "on"){
-                    if(timebomb == 4.5 || this.bombx == undefined){//นับเวลาระเบิดหรือระเบิดหาย
+                    if(timebomb == 5 || this.bombx == undefined){//นับเวลาระเบิดหรือระเบิดหาย
                         boom.x = this.bombx;
                         boom.y = this.bomby;
                         boomset = "off";
