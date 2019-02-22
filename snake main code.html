@@ -55,12 +55,13 @@
                 })
             }
             function makefood(){  //สร้างพื้นที่ที่มีโอกาศเกิดอาหาร
-                for (var i = 0; i <= canvas.width; i += 20){ // แกน x
-                    for(var j = 0; j <= canvas.height; j += 20){ // แกน y
+                for (var i = 0; i <= canvas.width-20; i += 20){ // แกน x
+                    for(var j = 0; j <= canvas.height-20; j += 20){ // แกน y
                         for(let y = 0; y < snake.length; y++){
-                            if (snake[y].x != i || snake[y].y){ //พื้นที่เกิดอาหารจะไม่ไปทับตัวงู
-                                foodspace.push({x:i,y:j});}
-                    }
+                            if (snake[y].x == i && snake[y].y == j){ //พื้นที่เกิดอาหารจะไม่ไปทับตัวงู
+                                break}
+                            else if (y == snake.length-1) foodspace.push({x:i, y:j})
+                        }
                 }
             }
             }
