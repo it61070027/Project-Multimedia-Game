@@ -38,7 +38,6 @@
             var size = 20; //ขนาดบล็อคตัวงู
             var key_p = undefined;
             var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
-            var foodspace = [] //array เก็บ พื้นที่เกิดอาหาร
             function spawn_b(){
                 this.bombx = Math.floor(Math.random()*24+1)*size;
                 this.bomby = Math.floor(Math.random()*24+1)*size;
@@ -47,17 +46,18 @@
                 x:undefined,
                 y:undefined
             }
-            for (var i = 0; i <= canvas.width-40; i += 20){ // แกน x
+            /*for (var i = 0; i <= canvas.width-40; i += 20){ // แกน x
                     for(var j = 0; j <= canvas.height-20; j += 20){
                         snake.push({x:i,y:j})
-                    }}
-            /*for (let i = 1; i <= 600; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
+                    }}*/
+            for (let i = 1; i <= 600; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
                 snake.push({
                     x:canvas.width/2-10,
                     y:(canvas.height/2-10)+(i*size)
                 })
-            }*/
+            }
             function makefood(){  //สร้างพื้นที่ที่มีโอกาศเกิดอาหาร
+                this.foodspace = [] //array เก็บ พื้นที่เกิดอาหาร
                 for (var i = 0; i <= canvas.width-20; i += 20){ // แกน x
                     for(var j = 0; j <= canvas.height-20; j += 20){ // แกน y
                         for(let y = 0; y < snake.length; y++){
@@ -69,7 +69,7 @@
             }
             }
             makefood();
-            var food = foodspace[Math.floor(Math.random() * foodspace.length)]; // array อาหารที่เกิด
+            var food = this.foodspace[Math.floor(Math.random() * foodspace.length)]; // array อาหารที่เกิด
             window.addEventListener('keydown', function(event){ // รับค่าkeyborad
                 key.move= String.fromCharCode(event.keyCode); //ให้ค่าที่รับกลายเป็นstr
             })
@@ -125,7 +125,7 @@
 
                 if(newx == food.x && newy == food.y){ //ถ้างูกินอาหารแล้วอาหารจะถูกสุ่มเกิดใหม่
                     makefood();
-                    food = foodspace[Math.floor(Math.random() * foodspace.length)];
+                    food = this.foodspace[Math.floor(Math.random() * foodspace.length)];
                     }
                 else{
                     if ((newx != snake[0].x || newy != snake[0].y) && snake.length != 1){
