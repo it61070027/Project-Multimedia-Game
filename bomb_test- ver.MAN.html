@@ -38,10 +38,7 @@
             var size = 20; //ขนาดบล็อคตัวงู
             var key_p = undefined;
             var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
-            var food = { //สุ่มเกิดอาหาร
-                x:Math.floor(Math.random()*24+1)*size, 
-                y:Math.floor(Math.random()*24+1)*size
-            }
+            var foodspace = [] //array เก็บ พื้นที่เกิดอาหาร
             function spawn_b(){
                 this.bombx = Math.floor(Math.random()*24+1)*size;
                 this.bomby = Math.floor(Math.random()*24+1)*size;
@@ -57,10 +54,25 @@
                     y:(canvas.height/2-10)+(i*size)
                 })
             }
+            function makefood(){  //สร้างพื้นที่ที่มีโอกาศเกิดอาหาร
+                for (var i = 0; i <= canvas.width; i += 20){ // แกน x
+                    for(var j = 0; j <= canvas.height; j += 20){ // แกน y
+                        for(let y = 0; y < snake.length; y++){
+                            if (snake[y].x != i || snake[y].y){ //พื้นที่เกิดอาหารจะไม่ไปทับตัวงู
+                                foodspace.push({x:i,y:j});}
+                    }
+                }
+            }
+            }
+            makefood();
+            var food = foodspace[Math.floor(Math.random() * foodspace.length)]; // array อาหารที่เกิด
             window.addEventListener('keydown', function(event){ // รับค่าkeyborad
                 key.move= String.fromCharCode(event.keyCode); //ให้ค่าที่รับกลายเป็นstr
             })
             function draw(){ //ฟังชั่นในการสร้างภาพทั้งหมด
+                
+                
+                
                 if ((snake[0].x == this.bombx || snake[0].y == this.bomby) && bombkill == "on"){ //โดนระเบิดตาย
                         clearInterval(game); //หยุดการทำงาน
                 }
@@ -108,10 +120,9 @@
                 }
 
                 if(newx == food.x && newy == food.y){ //ถ้างูกินอาหารแล้วอาหารจะถูกสุ่มเกิดใหม่
-                    food = {
-                    x:Math.floor(Math.random()*24+1)*size,
-                    y:Math.floor(Math.random()*24+1)*size
-                    }}
+                    makefood();
+                    food = foodspace[Math.floor(Math.random() * foodspace.length)];
+                    }
                 else{
                     if ((newx != snake[0].x || newy != snake[0].y) && snake.length != 1){
                     snake.pop();} //แล้วงูไม่กินอาหารหางจะหาย
@@ -176,7 +187,8 @@
             drawBomb();//เรียกฟังชั้นวาดระเบิด
             drawBoom();//เรียกฟังชั้นวาดแรงระเบิด
             }
-            let game = setInterval(draw,75);
+        
+        let game = setInterval(draw,75);
         </script>
     </body>
 </html>
