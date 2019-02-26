@@ -27,6 +27,7 @@ var food = {
     x:undefined,
     y:undefined}
 function start(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
         snake.push({
             x:canvas.width/2-10,
