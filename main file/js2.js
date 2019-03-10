@@ -14,7 +14,7 @@ var key_p = undefined;
 var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
 var score = 0;
 var long = 0; //ความยาวของตัวงู
-
+var high = 0; //score สุดท้าย
 var bomb= {
     x:undefined,
     y:undefined
@@ -26,7 +26,6 @@ var boom = {
 var food = {
     x:undefined,
     y:undefined}
-function start(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
         snake.push({
@@ -53,8 +52,9 @@ function start(){
     })
 
     function draw(){ //ฟังชั่นในการสร้างภาพทั้งหมด
+
         if ((snake[0].x == bomb.x || snake[0].y == bomb.y) && bombkill == "on"){ //โดนระเบิดตาย
-                clearInterval(game); //หยุดการทำงาน
+            died();
         }
         if (key.move == "W" && key_p != "S") key_p = "W"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         else if (key.move == "S" && key_p != "W" && key_p != undefined) key_p = "S"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
@@ -94,7 +94,7 @@ function start(){
                 ctx.fillStyle = "green";
                 ctx.fillRect(snake[i].x, snake[i].y, size, size);
                 ctx.strokeRect(snake[i].x, snake[i].y, size, size);
-                clearInterval(game); //หยุดการทำงาน
+                died();
                 }
             }
 
@@ -102,6 +102,7 @@ function start(){
 
         if(newx == food.x && newy == food.y){ //ถ้างูกินอาหารแล้วอาหารจะถูกสุ่มเกิดใหม่
             spaceNoSnake();
+            sound("bite")   //เสียงกิน
             food = this.space[Math.floor(Math.random() * this.space.length)];
             }
         else{
@@ -109,12 +110,11 @@ function start(){
             snake.pop();} //แล้วงูไม่กินอาหารหางจะหาย
         }
         if (newx != snake[0].x || newy != snake[0].y){
-        snake.unshift({ //เพิ่มส่วนหัว (ถ้างูกินอาหารส่วนหางจะไม่ถูกตัดทำให้งูยาวขึ้น)
+            snake.unshift({ //เพิ่มส่วนหัว (ถ้างูกินอาหารส่วนหางจะไม่ถูกตัดทำให้งูยาวขึ้น)
             x:newx,
             y:newy
         })
         }
-
         function drawBomb(){ //ฟังชั้นวาดระเบิด
             ctx.shadowColor = "purple"; //สีshawdow
             ctx.shadowBlur = 10; //ขนาดshadow
@@ -123,7 +123,7 @@ function start(){
             ctx.strokeRect(bomb.x, bomb.y, size, size); //สร้างขอบ
         }
 
-        function drawBoom(){//วาดระเบิด
+        function drawBoom(){//วาดรัศมีระเบิด
             ctx.shadowColor = "yellow";
             ctx.shadowBlur = 10;
             ctx.fillStyle = "yellow";
@@ -140,6 +140,7 @@ function start(){
                 boomset = "on"
                 casebomb = "off";
                 timebomb = 0;
+                sound("clock")  //เสียงนาฬิกา
             }
             else{
                 bomb.x = undefined;
@@ -153,9 +154,11 @@ function start(){
                 boom.x = bomb.x;
                 boom.y = bomb.y;
                 boomset = "off";
-                if (bomb.x != undefined) bombkill = "on";
+                if (bomb.x != undefined){
+                    bombkill = "on";
+                    sound("fire")   //เสียงระเบิด
+                }
                 else bombkill = "off";
-
             }
             timebomb = (timebomb*10 + 0.1*10) /10;  //เวลาระเบิด
         }
@@ -165,7 +168,6 @@ function start(){
                 snake = snake.slice(0, i);
                 }
             }
-
         }
     drawFood();//เรียกฟังชั้นวาดอาหาร
     drawBomb();//เรียกฟังชั้นวาดระเบิด
@@ -178,5 +180,27 @@ function start(){
     function updateScore(){
         // แสดงคะแนนให้คนดู
         theScore.innerText = long-1; //optional: เอาความยาวมา -1 เพราะไม่อยากให้นับรวมส่วนหัวด้วย
+        highScore();
     }
-}
+    function highScore(){
+        if((long-1) > high){
+            high = long-1;
+        }
+    }
+    function died(){
+        sound("gameover");
+        document.getElementById('endGame').style.display = 'block';
+        total.innerText = high;
+        final.innerText = long-1;
+        document.getElementById("bgm").muted;
+        document.getElementById("clock").muted;
+        document.getElementById("gameover").muted;
+        clearInterval(game); //หยุดการทำงาน
+    }
+    function start(){
+        window.location.reload();
+        document.getElementById('endGame').style.display = 'none';
+    }
+    function sound(id){ //ฟังก์ชันใส่เสียง
+        document.getElementById(id).play();
+    }

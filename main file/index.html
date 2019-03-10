@@ -5,13 +5,44 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+        <!-- This is for Audio-->
+        <audio id="bite" preload="auto">
+            <source src="src/sound/bite.mp3" type="audio/ogg">
+        </audio>
+        <audio id="clock" preload="auto">
+            <source src="src/sound/clock.mp3" type="audio/ogg">
+        </audio>
+        <audio id="fire" preload="auto">
+            <source src="src/sound/fire.mp3" type="audio/ogg">
+        </audio>
+        <audio id="gameover" preload="auto">
+            <source src="src/sound/game_over.mp3" type="audio/ogg">
+        </audio>
+        <audio id="gameover" autoplay loop>
+            <source src="src/sound/bgm.mp3" type="audio/ogg">
+        </audio>
     </head>
     <body>
-        <h2>score: <span id="theScore">0</span></h2>
-        <canvas id="myCanvas" height="500";
-        width="500";>
-        </canvas>
-        <script src="js2.js"></script>
-        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="start()">Start!</button>
+        <div id="playGame">
+            <h2>score: <span id="theScore">0</span></h2>
+            <canvas id="myCanvas" height="500";
+            width="500";>
+            </canvas>
+        </div>
+        <center>
+        <div id="endGame">
+            <audio muted></audio>
+            <div id="endContent">
+                <img id="grave" src="src/pic/grave.gif">
+                <h1 id="youDied">Game Over</h1>
+                <h2 id="score">High Score: <span id="total">0</span></h2>
+                <h2 id="score">Final Score: <span id="final">0</span></h2>
+                <button class="myButton" onclick="start()">Replay!</button>
+            </div>
+        </div>
+        </center>
+    <script src="js2.js"></script>
     </body>
 </html>
