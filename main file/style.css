@@ -43,7 +43,7 @@ h2{
 #youDied{
     position: relative;
     bottom: 500px;
-    font-size: 100px;
+    font-size: 200px;
     margin: 0px;
     color: aliceblue;
     font-family: 'Kaushan Script', cursive;
@@ -51,7 +51,7 @@ h2{
 #nscore{
     font-size: 30px;
     position: relative;
-    bottom: 100px;
+    bottom: 250px;
     left: 400px;
 }
 button{
