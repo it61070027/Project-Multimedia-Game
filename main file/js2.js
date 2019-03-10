@@ -1,4 +1,3 @@
-/*ไฟล์สำรอง : ทำปุ่ม Play again ยังไม่สำเร็จ*/
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var count = 0;
@@ -12,9 +11,9 @@ var key = { //กำหนดตค่าปุ่มเริ่มต้น
 var size = 20; //ขนาดบล็อคตัวงู
 var key_p = undefined;
 var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
-var score = 0;
 var long = 0; //ความยาวของตัวงู
 var high = 0; //score สุดท้าย
+var time = 20; //กำหนดเวลาของเกม
 var bomb= {
     x:undefined,
     y:undefined
@@ -33,6 +32,7 @@ var food = {
             y:(canvas.height/2-10)+(i*size)
         })
     }
+
     function spaceNoSnake(){  //พื้นที่ที่ไม่มีงู
         this.space = [] //array เก็บ พื้นที่
         for (var i = 0; i <= canvas.width-20; i += 20){ // แกน x
@@ -42,8 +42,8 @@ var food = {
                         break}
                     else if (y == snake.length-1) space.push({x:i, y:j})
                 }
+            }
         }
-    }
     }
     spaceNoSnake();
     food = this.space[Math.floor(Math.random() * this.space.length)]; // array อาหารที่เกิด
@@ -52,7 +52,6 @@ var food = {
     })
 
     function draw(){ //ฟังชั่นในการสร้างภาพทั้งหมด
-
         if ((snake[0].x == bomb.x || snake[0].y == bomb.y) && bombkill == "on"){ //โดนระเบิดตาย
             died();
         }
@@ -177,29 +176,59 @@ var food = {
     }
 
     let game = setInterval(draw,75);
+    countdown();//เรียกฟังก์ชันนับถอยหลัง
+
     function updateScore(){
         // แสดงคะแนนให้คนดู
         theScore.innerText = long-1; //optional: เอาความยาวมา -1 เพราะไม่อยากให้นับรวมส่วนหัวด้วย
         highScore();
     }
-    function highScore(){
+    function countdown(){
+        //  ฟังก์ชันนับเวลา
+        cd = setInterval(
+        function(){
+            // ถ้ายังไม่หมดเวลา
+            if (time > 0) {
+                // ลดเวลา
+                time--;
+                // อัพเดทเวลา
+                updateTime();
+            }
+            // ถ้าหมดเวลา
+            else{
+                died();
+                console.log("END");
+            }
+        },1000)
+    }
+    function updateTime(){
+        // แสดงเวลา
+        theTime.innerText = time;
+
+        // ถ้าหมดเวลา ให้บอก
+        if (time == 0) {
+            status.innerHTML = "Game Over!! <a href='#!' onclick='ready()'>play again</a>"; // !!ยังไม่สำเร็จ คาดว่าต้องแก้ฟังก์ชันใหม่
+        }
+    }
+    function highScore(){   //ฟังก์ชั่นเก็บ HighScore
         if((long-1) > high){
             high = long-1;
         }
     }
-    function died(){
-        sound("gameover");
-        document.getElementById('endGame').style.display = 'block';
-        total.innerText = high;
-        final.innerText = long-1;
-        document.getElementById("bgm").muted;
-        document.getElementById("clock").muted;
-        document.getElementById("gameover").muted;
+    function died(){    //ฟังก์ชันตาย
+        time = 0;
+        sound("gameover");  //เสียง Gameover
+        document.getElementById('endGame').style.display = 'block'; //แสดงหน้า endGame ที่ซ่อนไว้
+        total.innerText = high;     //คะแนน HighScore
+        final.innerText = long-1;   //คะแนน FinalScore
+        document.getElementById('bgm').pause(); //Pause เสียง BGM
+        document.getElementById("clock").pause(); //Pause เสียง clock (บางทีมันชอบเกินมา)
         clearInterval(game); //หยุดการทำงาน
+
     }
     function start(){
-        window.location.reload();
-        document.getElementById('endGame').style.display = 'none';
+        window.location.reload();   //รีเฟรซหน้า
+        document.getElementById('endGame').style.display = 'none';  //ซ่อนหน้า endGame
     }
     function sound(id){ //ฟังก์ชันใส่เสียง
         document.getElementById(id).play();

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>test snake</title>
+        <title>The Snake</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="style.css">
+        <!-- This is for font -->
         <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
-        <!-- This is for Audio-->
+
+        <!-- This is for Audio -->
         <audio id="bite" preload="auto">
             <source src="src/sound/bite.mp3" type="audio/ogg">
         </audio>
@@ -20,25 +22,29 @@
         <audio id="gameover" preload="auto">
             <source src="src/sound/game_over.mp3" type="audio/ogg">
         </audio>
-        <audio id="gameover" autoplay loop>
+        <audio id="bgm" autoplay loop>
             <source src="src/sound/bgm.mp3" type="audio/ogg">
         </audio>
     </head>
     <body>
+        <!-- Game Screen -->
         <div id="playGame">
             <h2>score: <span id="theScore">0</span></h2>
+            <h2>Time Left: <span id="theTime">20</span> </h2>
             <canvas id="myCanvas" height="500";
             width="500";>
             </canvas>
         </div>
+
+        <!-- End Screen -->
         <center>
         <div id="endGame">
             <audio muted></audio>
             <div id="endContent">
                 <img id="grave" src="src/pic/grave.gif">
                 <h1 id="youDied">Game Over</h1>
-                <h2 id="score">High Score: <span id="total">0</span></h2>
-                <h2 id="score">Final Score: <span id="final">0</span></h2>
+                <h2 id="nscore">High Score: <span id="total">0</span></h2>
+                <h2 id="nscore">Final Score: <span id="final">0</span></h2>
                 <button class="myButton" onclick="start()">Replay!</button>
             </div>
         </div>
