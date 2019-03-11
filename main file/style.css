@@ -16,6 +16,22 @@ h2{
     font-family: 'Coiny', cursive;
     font-size: 30px;
 }
+#pressStart{
+    color: white;
+}
+#startGame{
+    margin: auto;
+    display: block;
+    position: absolute;
+    top: 73%;
+    left: 38.5%;
+    z-index: -1;
+
+}
+#keyW{
+    height: 40px;
+    width: 40px;
+}
 #endGame{
     position: relative;
     bottom: 150px;
@@ -56,7 +72,7 @@ h2{
 }
 button{
     position: relative;
-    bottom: 200px;
+    bottom: 270px;
     height: 50px;
     width: 500px;
     margin: 20px 2px 1px;

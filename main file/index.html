@@ -19,7 +19,7 @@
         <audio id="fire" preload="auto">
             <source src="src/sound/fire.mp3" type="audio/ogg">
         </audio>
-        <audio id="gameover" preload="auto">
+        <audio id="gameover">
             <source src="src/sound/game_over.mp3" type="audio/ogg">
         </audio>
         <audio id="bgm" autoplay loop>
@@ -27,6 +27,10 @@
         </audio>
     </head>
     <body>
+        <!-- Start Screen -->
+        <div id="startGame">
+            <h1 id="pressStart">Press <img id="keyW" src="src/pic/w.gif"> to start!!</h1>
+        </div>
         <!-- Game Screen -->
         <div id="playGame">
             <h2>score: <span id="theScore">0</span></h2>

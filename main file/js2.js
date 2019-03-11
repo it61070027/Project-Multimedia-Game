@@ -25,6 +25,15 @@ var boom = {
 var food = {
     x:undefined,
     y:undefined}
+    window.onkeyup = function(event) {
+        let key = event.key.toUpperCase();
+        if ( key == 'W' ) {
+            document.getElementById("startGame").style.display="none";
+        }
+        else if( key == 'P' ) {
+            died();
+        }
+    }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
         snake.push({
@@ -32,7 +41,6 @@ var food = {
             y:(canvas.height/2-10)+(i*size)
         })
     }
-
     function spaceNoSnake(){  //พื้นที่ที่ไม่มีงู
         this.space = [] //array เก็บ พื้นที่
         for (var i = 0; i <= canvas.width-20; i += 20){ // แกน x
@@ -216,8 +224,8 @@ var food = {
         }
     }
     function died(){    //ฟังก์ชันตาย
+        sound("gameover");  //เสียง Gameovers
         time = 0;
-        sound("gameover");  //เสียง Gameover
         document.getElementById('endGame').style.display = 'block'; //แสดงหน้า endGame ที่ซ่อนไว้
         total.innerText = high;     //คะแนน HighScore
         final.innerText = long-1;   //คะแนน FinalScore
