@@ -23,6 +23,10 @@ var boom = {
     x:undefined,
     y:undefined
 }
+var clock = {
+    x:undefined,
+    y:undefined
+}
 var food = {
     x:undefined,
     y:undefined}
@@ -131,6 +135,16 @@ var food = {
             ctx.fillRect(bomb.x, bomb.y, size, size); //สร้างรูป
             ctx.strokeRect(bomb.x, bomb.y, size, size); //สร้างขอบ
         }
+        
+        // test //
+        function drawClock(){
+            ctx.shadowColor = "orange"; //สีshawdow
+            ctx.shadowBlur = 10; //ขนาดshadow
+            ctx.fillStyle = "orange"; //สี
+            ctx.fillRect(clock.x, clock.y, size, size); //สร้างรูป
+            ctx.strokeRect(clock.x, clock.y, size, size); //สร้างขอบ
+        }
+        // end test //
 
         function drawBoom(){//วาดรัศมีระเบิด
             ctx.shadowColor = "yellow";
@@ -143,9 +157,9 @@ var food = {
         }
         count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
         if (count%6 == 0){ // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
-            if (casebomb == "on"){
+            if (casebomb == "on" && chktime == "on"){
                 spaceNoSnake();
-                bomb = this.space[Math.floor(Math.random() * this.space.length)];
+                bomb = this.space[Math.floor(Math.random() * this.space.length)];                
                 boomset = "on"
                 casebomb = "off";
                 timebomb = 0;
@@ -178,6 +192,8 @@ var food = {
                 }
             }
         }
+
+    drawClock();
     drawFood();//เรียกฟังชั้นวาดอาหาร
     drawBomb();//เรียกฟังชั้นวาดระเบิด
     drawBoom();//เรียกฟังชั้นวาดแรงระเบิด
