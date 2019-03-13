@@ -191,16 +191,16 @@ var food = {
                 }
             }
         }
+        
         if (chktime == "on"){
-            clockcount += 1;
-            console.log(clockcount);}
-        if (clockcount == 300){ // นาฬิกาหายไปเมื่อเวลากำหนด
+            clockcount += 1;}/* ยังไม่เสร็จ
+        if (clockcount == 20){ // นาฬิกาหายไปเมื่อเวลากำหนด 
             clock.x = undefined;
             clock.y = undefined;
             chkclock = "on";
             clockcount = 0;
-        }
-        if (snake[0].x == clock.x && snake[0].y == clock.y){ //กินนาฬิกาแล้วหายไปเลาเพิ่มขึ้น
+        }*/
+        if (snake[0].x == clock.x && snake[0].y == clock.y){ //กินนาฬิกาแล้วหายไปเวลาเพิ่มขึ้น
             time += 3;
             updateTime();
             clock.x = undefined;
@@ -209,7 +209,7 @@ var food = {
             clockcount = 0;
         }
         if (clockcount % 4 == 0){ // ทำให้เกิดนาฬิกา
-            if (chkclock == "on" && chktime == "on" && clockcount > 20){
+            if (chkclock == "on" && chktime == "on" && clockcount > 19){
                 spaceNoSnake();
                 clock = this.space[Math.floor(Math.random() * this.space.length)];
                 chkclock = "off";;
