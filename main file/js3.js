@@ -1,11 +1,13 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var count = 0;
+var clockcount = 0;
 var bombkill = "off";
 var chktime = "off"; //กำหนดตัวแปรเช็คการเริ่มกดปุ่มตัวแรก
 var casebomb = "on";//ตั้งค่าจุดระเบิด
 var boomset = "off";//ตั้งระเบิดจะระเบิด
 var timebomb = 0;//เซตเวลาระเบิด
+var chkclock = "on"; // เช็คว่างูกินที่เพิ่มเวลาไปหรือยัง
 var key = { //กำหนดตค่าปุ่มเริ่มต้น
     move:undefined
 }
@@ -19,11 +21,11 @@ var bomb= {
     x:undefined,
     y:undefined
 }
-var boom = {
+var clock = {
     x:undefined,
     y:undefined
 }
-var clock = {
+var boom = {
     x:undefined,
     y:undefined
 }
@@ -135,16 +137,13 @@ var food = {
             ctx.fillRect(bomb.x, bomb.y, size, size); //สร้างรูป
             ctx.strokeRect(bomb.x, bomb.y, size, size); //สร้างขอบ
         }
-        
-        // test //
-        function drawClock(){
+        function drawClock(){ //ฟังชั้นวาดระเบิด
             ctx.shadowColor = "orange"; //สีshawdow
             ctx.shadowBlur = 10; //ขนาดshadow
             ctx.fillStyle = "orange"; //สี
             ctx.fillRect(clock.x, clock.y, size, size); //สร้างรูป
             ctx.strokeRect(clock.x, clock.y, size, size); //สร้างขอบ
         }
-        // end test //
 
         function drawBoom(){//วาดรัศมีระเบิด
             ctx.shadowColor = "yellow";
@@ -159,7 +158,7 @@ var food = {
         if (count%6 == 0){ // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
             if (casebomb == "on" && chktime == "on"){
                 spaceNoSnake();
-                bomb = this.space[Math.floor(Math.random() * this.space.length)];                
+                bomb = this.space[Math.floor(Math.random() * this.space.length)];
                 boomset = "on"
                 casebomb = "off";
                 timebomb = 0;
@@ -192,8 +191,31 @@ var food = {
                 }
             }
         }
-
-    drawClock();
+        if (chktime == "on"){
+            clockcount += 1;
+            console.log(clockcount);}
+        if (clockcount == 300){ // นาฬิกาหายไปเมื่อเวลากำหนด
+            clock.x = undefined;
+            clock.y = undefined;
+            chkclock = "on";
+            clockcount = 0;
+        }
+        if (snake[0].x == clock.x && snake[0].y == clock.y){ //กินนาฬิกาแล้วหายไปเลาเพิ่มขึ้น
+            time += 3;
+            updateTime();
+            clock.x = undefined;
+            clock.y = undefined;
+            chkclock = "on";
+            clockcount = 0;
+        }
+        if (clockcount % 4 == 0){ // ทำให้เกิดนาฬิกา
+            if (chkclock == "on" && chktime == "on" && clockcount > 20){
+                spaceNoSnake();
+                clock = this.space[Math.floor(Math.random() * this.space.length)];
+                chkclock = "off";;
+            }
+        }
+    drawClock();    
     drawFood();//เรียกฟังชั้นวาดอาหาร
     drawBomb();//เรียกฟังชั้นวาดระเบิด
     drawBoom();//เรียกฟังชั้นวาดแรงระเบิด
@@ -216,7 +238,7 @@ var food = {
                 // ถ้ายังไม่หมดเวลา
                 if (time > 0) {
                     // ลดเวลา
-                    if (chktime == "on"){
+                    if (chktime == "on"){ // BUG บางทีมันหน่วงตรงนับ 20
                     time--;
                     // อัพเดทเวลา
                     updateTime();}
