@@ -13,7 +13,7 @@ var key_p = undefined;
 var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
 var long = 0; //ความยาวของตัวงู
 var high = 0; //score สุดท้าย
-var time = 20; //กำหนดเวลาของเกม
+var time = 60; //กำหนดเวลาของเกม
 var bomb= {
     x:undefined,
     y:undefined
@@ -27,7 +27,7 @@ var food = {
     y:undefined}
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
-        if ( key == 'W' ) {
+        if ( key == 'W' || key == 'A' || key == 'S' || key == 'D' ) {
             document.getElementById("startGame").style.display="none";
         }
         else if( key == 'P' ) {
