@@ -183,11 +183,19 @@ var blink = 0;
         })
         }
         function drawBomb(){ //ฟังชั้นวาดระเบิด
-            ctx.shadowColor = "purple"; //สีshawdow
-            ctx.shadowBlur = 10; //ขนาดshadow
-            ctx.fillStyle = "purple"; //สี
-            ctx.fillRect(bomb.x, bomb.y, size, size); //สร้างรูป
-            ctx.strokeRect(bomb.x, bomb.y, size, size); //สร้างขอบ
+            const image = new Image(20, 20); // Using optional size for image
+            image.onload = drawImageActualSize; // Draw when image has loaded
+
+            // Load an image of intrinsic size 300x227 in CSS pixels
+            image.src = "src/pic/bomb.gif";
+            image.onload = function(){
+                ctx.drawImage(this, bomb.x, bomb.y, this.width, this.height);
+              }
+            // ctx.shadowColor = "purple"; //สีshawdow
+            // ctx.shadowBlur = 10; //ขนาดshadow
+            // ctx.fillStyle = "purple"; //สี
+            // ctx.fillRect(bomb.x, bomb.y, size, size); //สร้างรูป
+            // ctx.strokeRect(bomb.x, bomb.y, size, size); //สร้างขอบ
         }
 
         function drawBoom(){//วาดรัศมีระเบิด
