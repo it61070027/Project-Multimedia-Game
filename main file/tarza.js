@@ -10,6 +10,7 @@ var timebomb = 0;//เซตเวลาระเบิด
 var key = { //กำหนดตค่าปุ่มเริ่มต้น
     move:undefined
 }
+var countchage = 0;
 var size = 20; //ขนาดบล็อคตัวงู
 var key_p = undefined;
 var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
@@ -39,7 +40,7 @@ var shield = {
 }
 var dx = 10;    //ความเร็วไอเทม
 var dy = 10;
-var status = "normal";  //สถานะงู [ normal | blue ]
+var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
@@ -88,7 +89,7 @@ var blueCount = 5;
                 died();
             }
             else if(status == "mode_blue"){
-                status = "normal";
+                status = "cooldown";
             }
         }
         if (key.move == "W" && key_p != "S") key_p = "W"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
@@ -103,6 +104,10 @@ var blueCount = 5;
                     color1 = "#10e78b";
                     color2 = "#ef648f";
                 }
+            if (status == "cooldown"){
+                color1 = "pink";
+                color2 = "#ef648f";
+            }
                 ctx.shadowColor = "#F20505"; //สีshadow
                 ctx.shadowBlur = 10; //ขนาดshadow
                 ctx.fillStyle = color1; //สี
@@ -140,7 +145,7 @@ var blueCount = 5;
                     died();
                 }
                 else if(status == "mode_blue"){
-                    status = "normal";
+                    status = "cooldown";
                     break;
                 }
             }
@@ -191,18 +196,21 @@ var blueCount = 5;
             ctx.fillStyle = "aqua";
             ctx.fillRect(shield.x, shield.y, size, size); //สร้างรูป
             ctx.strokeRect(shield.x, shield.y, size, size); //สร้างขอบ
-                if(shield.x  >= canvas.width-size || shield.x  <= -size){
-                    dx = -dx;
+                if(shield.x  >= canvas.width-size || shield.x  <= 0){
+                    if (!(chk_ShieldX_born && shield.x == 0)) dx = -dx; //แก้บัคxเกิดตำแหน่ง 0 แล้วขยับไม่ได้
+                    chk_ShieldX_born = 0;
                 }
-                if(shield.y  >= canvas.height-size || shield.y <= -size){
-                    dy = -dy;
+                if(shield.y  >= canvas.height-size || shield.y <= 0){
+                    if (!(chk_ShieldY_born && shield.y == 0)) dy = -dy;//แก้บัคyเกิดตำแหน่ง 0 แล้วขยับไม่ได้
+                    chk_ShieldY_born = 0;
                 }
                 shield.x += dx;
                 shield.y += dy;
         }
         if(shield.x == undefined){  //สุ่มตำแหน่ง Shield (ขั้นทดลอง)
-            shield = this.space[Math.floor(Math.random() * this.space.length)];;
-            console.log(shield.x, shield.y);
+            shield = this.space[Math.floor(Math.random() * this.space.length)];
+            var chk_ShieldX_born = 1;
+            var chk_ShieldY_born = 1;
         }
         //เช็คว่ากิน shield ได้ไหม
         if((shield.x >= snake[0].x-10 && shield.x <= snake[0].x+10) && (shield.y >= snake[0].y-10 && shield.y <= snake[0].y+10)){
@@ -243,11 +251,11 @@ var blueCount = 5;
         if (bombkill == "on"){
             for (let i = 1; i < snake.length; i++){ //เช็คว่างูชนรึยัง
                 if(bomb.x == snake[i].x || bomb.y == snake[i].y){
-                    if(status != "mode_blue"){
+                    if(status == "normal"){
                         snake = snake.slice(0, i);
                     }
                     else{
-                        status = "normal";
+                        status = "cooldown";
                     }
                 }
             }
@@ -276,6 +284,14 @@ var blueCount = 5;
                 clock = this.space[Math.floor(Math.random() * this.space.length)];
                 chkclock = "off";;
             }
+        }
+        if (status == "cooldown"){
+            countchage = (countchage*10 + 0.1*10) /10;
+            if (countchage == 3){
+                status = "normal";
+                countchage = 0;
+            }
+
         }
     drawClock();
     drawFood();//เรียกฟังชั้นวาดอาหาร
