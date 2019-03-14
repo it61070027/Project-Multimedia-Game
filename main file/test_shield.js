@@ -13,7 +13,7 @@ var key_p = undefined;
 var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
 var long = 0; //ความยาวของตัวงู
 var high = 0; //score สุดท้าย
-var time = 20; //กำหนดเวลาของเกม
+var time = 60; //กำหนดเวลาของเกม
 var bomb = {
     x:undefined,
     y:undefined
@@ -84,15 +84,21 @@ var status = "normal";
         else if (key.move == "A" && key_p != "D") key_p = "A"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         else if (key.move == "D" && key_p != "A") key_p = "D"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var color1 = "#BF0404";
+        var color2 = "#ef648f";
+        for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
+            if(status == "mode_blue"){
+                    color1 = "#10e78b";
+                    color2 = "#ef648f";
+                }
+                ctx.shadowColor = "#F20505"; //สีshadow
+                ctx.shadowBlur = 10; //ขนาดshadow
+                ctx.fillStyle = color1; //สี
+                ctx.fillRect(snake[i].x, snake[i].y, size, size);
+                ctx.strokeStyle = color2;
+                ctx.strokeRect(snake[i].x, snake[i].y, size, size);
+            }
 
-           for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
-            ctx.shadowColor = "#F20505"; //สีshadow
-            ctx.shadowBlur = 10; //ขนาดshadow
-            ctx.fillStyle = "#BF0404"; //สี
-            ctx.fillRect(snake[i].x, snake[i].y, size, size);
-            ctx.strokeStyle = "#ef648f";
-            ctx.strokeRect(snake[i].x, snake[i].y, size, size);
-        }
 
         function drawFood(){
             ctx.shadowColor = "red";
@@ -114,7 +120,6 @@ var status = "normal";
         if (newx != snake[0].x || newy != snake[0].y){
             for (let i = 0; i < snake.length; i++){ //เช็คว่างูชนรึยัง
             if((newx == snake[i].x && newy == snake[i].y)|| (newx == bomb.x && newy == bomb.y)){
-                //died();
                 //เช็คว่าอยู่ mode อมตะหรือไม่
                 if(status == "normal"){
                     ctx.fillStyle = "green";
@@ -175,25 +180,15 @@ var status = "normal";
                 if(shield.y + size > canvas.height || shield.y - size < 0){
                     dy = -dy;
                 }
-                shield.x += dx
-                shield.y += dy
-        }
-        function blueMode(){//ฟังก์ชัน โหมดอมตะ
-            if(status == "mode_blue"){
-                for (let i = 0; i <= snake.length; i++){ //เปลี่ยนเป็นสีฟ้า [BUG: ปลายหาง สีไม่เปลี่ยน]
-                    ctx.fillStyle = "#10e78b";
-                    ctx.fillRect(snake[i].x, snake[i].y, size, size); //สร้างรูป
-                    ctx.strokeRect(snake[i].x, snake[i].y, size, size); //สร้างขอบ
-                }
-
-            }
+                shield.x += dx;
+                shield.y += dy;
         }
         if(shield.x == undefined){  //สุ่มตำแหน่ง Shield (ขั้นทดลอง)
             shield = this.space[Math.floor(Math.random() * this.space.length)]
         }
-        //เช็คว่ากิน shield ได้ไหม [ กินยากเกินตอนนี้ ]
+        //เช็คว่ากิน shield ได้ไหม
         if((shield.x+size > snake[0].x && shield.x+size < snake[0].x+size) && (shield.y+size > snake[0].y && shield.y+size < snake[0].y+size)){
-            shield.x = undefined;   //กินเสร็จแล้วไอเทมหาย (ยังไม่ได้)
+            shield.x = undefined;   //กินเสร็จแล้วไอเทมหาย
             shield.y = undefined;
             status = "mode_blue";
         }
@@ -229,7 +224,7 @@ var status = "normal";
         }
         if (bombkill == "on"){
             for (let i = 1; i < snake.length; i++){ //เช็คว่างูชนรึยัง
-            if(bomb.x == snake[i].x || bomb.y == snake[i].y){
+            if(bomb.x == snake[i].x || bomb.y == snake[i].y && status == "normal"){
                 snake = snake.slice(0, i);
                 }
             }
@@ -238,7 +233,7 @@ var status = "normal";
     drawBomb();//เรียกฟังชั้นวาดระเบิด
     drawBoom();//เรียกฟังชั้นวาดแรงระเบิด
     drawShield();//เรียกฟังก์ชันวาดไอเทม: โล่  [ ยังไม่สำเร็จ ]
-    blueMode();//เรียกฟังก์ชันเช็ค โหมดอมตะ   [ ยังไม่สำเร็จ ]
+
     long = snake.length; //หาขนาด Array งู
     updateScore();//เรียกฟังก์ชัน อัพเดทคะแนน
     }

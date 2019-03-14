@@ -14,7 +14,7 @@ var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarra
 var long = 0; //ความยาวของตัวงู
 var high = 0; //score สุดท้าย
 var time = 60; //กำหนดเวลาของเกม
-var bomb= {
+var bomb = {
     x:undefined,
     y:undefined
 }
@@ -24,14 +24,26 @@ var boom = {
 }
 var food = {
     x:undefined,
-    y:undefined}
+    y:undefined
+}
+var shield = {
+    x:undefined,
+    y:undefined,
+}
+var dx = 10;    //ความเร็วไอเทม
+var dy = 10;
+var status = "normal";  //สถานะงู [ normal | blue ]
+var blueCount = 5;
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
-        if ( key == 'W' || key == 'A' || key == 'S' || key == 'D' ) {
+        if ( key == 'W' || key == 'A' || key == 'S' || key == 'D') {
             document.getElementById("startGame").style.display="none";
         }
         else if( key == 'P' ) {
             died();
+        }
+        else if( key == 'M' ){
+            status = "mode_blue"
         }
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -61,22 +73,36 @@ var food = {
 
     function draw(){ //ฟังชั่นในการสร้างภาพทั้งหมด
         if ((snake[0].x == bomb.x || snake[0].y == bomb.y) && bombkill == "on"){ //โดนระเบิดตาย
-            died();
+            if(status == "normal"){
+                ctx.fillStyle = "green";
+                ctx.fillRect(snake[0].x, snake[0].y, size, size);
+                ctx.strokeRect(snake[0].x, snake[0].y, size, size);
+                died();
+            }
+            else if(status == "mode_blue"){
+                status = "normal";
+            }
         }
         if (key.move == "W" && key_p != "S") key_p = "W"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         else if (key.move == "S" && key_p != "W" && key_p != undefined) key_p = "S"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         else if (key.move == "A" && key_p != "D") key_p = "A"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         else if (key.move == "D" && key_p != "A") key_p = "D"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+        var color1 = "#BF0404";
+        var color2 = "#ef648f";
         for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
-            ctx.shadowColor = "#F20505"; //สีshadow
-            ctx.shadowBlur = 10; //ขนาดshadow
-            ctx.fillStyle = "#BF0404"; //สี
-            ctx.fillRect(snake[i].x, snake[i].y, size, size);
-            ctx.strokeStyle = "#ef648f";
-            ctx.strokeRect(snake[i].x, snake[i].y, size, size);
-        }
+            if(status == "mode_blue"){
+                    color1 = "#10e78b";
+                    color2 = "#ef648f";
+                }
+                ctx.shadowColor = "#F20505"; //สีshadow
+                ctx.shadowBlur = 10; //ขนาดshadow
+                ctx.fillStyle = color1; //สี
+                ctx.fillRect(snake[i].x, snake[i].y, size, size);
+                ctx.strokeStyle = color2;
+                ctx.strokeRect(snake[i].x, snake[i].y, size, size);
+            }
+
 
         function drawFood(){
             ctx.shadowColor = "red";
@@ -98,15 +124,20 @@ var food = {
         if (newx != snake[0].x || newy != snake[0].y){
             for (let i = 0; i < snake.length; i++){ //เช็คว่างูชนรึยัง
             if((newx == snake[i].x && newy == snake[i].y)|| (newx == bomb.x && newy == bomb.y)){
-                ctx.fillStyle = "green";
-                ctx.fillRect(snake[i].x, snake[i].y, size, size);
-                ctx.strokeRect(snake[i].x, snake[i].y, size, size);
-                died();
+                //เช็คว่าอยู่ mode อมตะหรือไม่
+                if(status == "normal"){
+                    ctx.fillStyle = "green";
+                    ctx.fillRect(snake[i].x, snake[i].y, size, size);
+                    ctx.strokeRect(snake[i].x, snake[i].y, size, size);
+                    died();
+                }
+                else if(status == "mode_blue"){
+                    status = "normal";
+                    break;
                 }
             }
-
+            }
         }
-
         if(newx == food.x && newy == food.y){ //ถ้างูกินอาหารแล้วอาหารจะถูกสุ่มเกิดใหม่
             spaceNoSnake();
             sound("bite")   //เสียงกิน
@@ -138,6 +169,30 @@ var food = {
             ctx.fillRect(boom.x, 0, size, canvas.height);
             ctx.strokeRect(0, boom.y, canvas.width, size);
             ctx.strokeRect(boom.x, 0, size, canvas.height);
+        }
+        function drawShield(){//วาดไอเทม: โล่
+            ctx.shadowColor = "aqua";
+            ctx.shadowBlur = 10;
+            ctx.fillStyle = "aqua";
+            ctx.fillRect(shield.x, shield.y, size, size); //สร้างรูป
+            ctx.strokeRect(shield.x, shield.y, size, size); //สร้างขอบ
+                if(shield.x + size > canvas.width || shield.x - size < 0){
+                    dx = -dx;
+                }
+                if(shield.y + size > canvas.height || shield.y - size < 0){
+                    dy = -dy;
+                }
+                shield.x += dx;
+                shield.y += dy;
+        }
+        if(shield.x == undefined){  //สุ่มตำแหน่ง Shield (ขั้นทดลอง)
+            shield = this.space[Math.floor(Math.random() * this.space.length)]
+        }
+        //เช็คว่ากิน shield ได้ไหม
+        if((shield.x >= snake[0].x-10 && shield.x <= snake[0].x+10) && (shield.y >= snake[0].y-10 && shield.y <= snake[0].y+10)){
+            shield.x = undefined;   //กินเสร็จแล้วไอเทมหาย (ยังไม่ได้)
+            shield.y = undefined;
+            status = "mode_blue";
         }
         count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
         if (count%6 == 0){ // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
@@ -171,16 +226,23 @@ var food = {
         }
         if (bombkill == "on"){
             for (let i = 1; i < snake.length; i++){ //เช็คว่างูชนรึยัง
-            if(bomb.x == snake[i].x || bomb.y == snake[i].y && status == "normal"){
-                snake = snake.slice(0, i);
+                if(bomb.x == snake[i].x || bomb.y == snake[i].y){
+                    if(status != "mode_blue"){
+                        snake = snake.slice(0, i);
+                    }
+                    else{
+                        status = "normal";
+                    }
                 }
             }
         }
     drawFood();//เรียกฟังชั้นวาดอาหาร
     drawBomb();//เรียกฟังชั้นวาดระเบิด
     drawBoom();//เรียกฟังชั้นวาดแรงระเบิด
+    drawShield();//เรียกฟังก์ชันวาดไอเทม: โล่  [ ยังไม่สำเร็จ ]
+
     long = snake.length; //หาขนาด Array งู
-    updateScore();
+    updateScore();//เรียกฟังก์ชัน อัพเดทคะแนน
     }
 
     let game = setInterval(draw,75);
@@ -204,6 +266,7 @@ var food = {
             }
             // ถ้าหมดเวลา
             else{
+                youDied.innerText = "Time out!"
                 died();
                 console.log("END");
             }
@@ -215,7 +278,7 @@ var food = {
 
         // ถ้าหมดเวลา ให้บอก
         if (time == 0) {
-            status.innerHTML = "Game Over!! <a href='#!' onclick='ready()'>play again</a>"; // !!ยังไม่สำเร็จ คาดว่าต้องแก้ฟังก์ชันใหม่
+            status.innerHTML = "Game Over!! <a href='#!' onclick='ready()'>play again</a>";
         }
     }
     function highScore(){   //ฟังก์ชั่นเก็บ HighScore
@@ -225,6 +288,7 @@ var food = {
     }
     function died(){    //ฟังก์ชันตาย
         sound("gameover");  //เสียง Gameovers
+        console.log("DIED!!!");
         time = 0;
         document.getElementById('endGame').style.display = 'block'; //แสดงหน้า endGame ที่ซ่อนไว้
         total.innerText = high;     //คะแนน HighScore
@@ -235,7 +299,7 @@ var food = {
 
     }
     function start(){
-        window.location.reload();   //รีเฟรซหน้า
+        window.location.reload();   //รีเฟรซหน้า (เหมือน F5)
         document.getElementById('endGame').style.display = 'none';  //ซ่อนหน้า endGame
     }
     function sound(id){ //ฟังก์ชันใส่เสียง
