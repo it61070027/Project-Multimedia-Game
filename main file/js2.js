@@ -171,7 +171,7 @@ var food = {
         }
         if (bombkill == "on"){
             for (let i = 1; i < snake.length; i++){ //เช็คว่างูชนรึยัง
-            if(bomb.x == snake[i].x || bomb.y == snake[i].y && status == "normal"){
+            if(bomb.x == snake[i].x || bomb.y == snake[i].y){
                 snake = snake.slice(0, i);
                 }
             }

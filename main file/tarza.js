@@ -1,7 +1,9 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var count = 0;
+var clockcount = 0;
 var bombkill = "off";
+var chktime = "off"; //กำหนดตัวแปรเช็คการเริ่มกดปุ่มตัวแรก
 var casebomb = "on";//ตั้งค่าจุดระเบิด
 var boomset = "off";//ตั้งระเบิดจะระเบิด
 var timebomb = 0;//เซตเวลาระเบิด
@@ -13,8 +15,13 @@ var key_p = undefined;
 var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
 var long = 0; //ความยาวของตัวงู
 var high = 0; //score สุดท้าย
-var time = 60; //กำหนดเวลาของเกม
+var time = 20; //กำหนดเวลาของเกม
+var chkclock = "on"; // เช็คว่างูกินที่เพิ่มเวลาไปหรือยัง
 var bomb = {
+    x:undefined,
+    y:undefined
+}
+var clock = {
     x:undefined,
     y:undefined
 }
@@ -38,6 +45,7 @@ var blueCount = 5;
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'S' || key == 'D') {
             document.getElementById("startGame").style.display="none";
+            chktime = "on";
         }
         else if( key == 'P' ) {
             died();
@@ -170,23 +178,31 @@ var blueCount = 5;
             ctx.strokeRect(0, boom.y, canvas.width, size);
             ctx.strokeRect(boom.x, 0, size, canvas.height);
         }
+        function drawClock(){ //ฟังชั้นวาดระเบิด
+            ctx.shadowColor = "orange"; //สีshawdow
+            ctx.shadowBlur = 10; //ขนาดshadow
+            ctx.fillStyle = "orange"; //สี
+            ctx.fillRect(clock.x, clock.y, size, size); //สร้างรูป
+            ctx.strokeRect(clock.x, clock.y, size, size); //สร้างขอบ
+        }
         function drawShield(){//วาดไอเทม: โล่
             ctx.shadowColor = "aqua";
             ctx.shadowBlur = 10;
             ctx.fillStyle = "aqua";
             ctx.fillRect(shield.x, shield.y, size, size); //สร้างรูป
             ctx.strokeRect(shield.x, shield.y, size, size); //สร้างขอบ
-                if(shield.x + size > canvas.width || shield.x - size < 0){
+                if(shield.x  >= canvas.width-size || shield.x  <= -size){
                     dx = -dx;
                 }
-                if(shield.y + size > canvas.height || shield.y - size < 0){
+                if(shield.y  >= canvas.height-size || shield.y <= -size){
                     dy = -dy;
                 }
                 shield.x += dx;
                 shield.y += dy;
         }
         if(shield.x == undefined){  //สุ่มตำแหน่ง Shield (ขั้นทดลอง)
-            shield = this.space[Math.floor(Math.random() * this.space.length)];
+            shield = this.space[Math.floor(Math.random() * this.space.length)];;
+            console.log(shield.x, shield.y);
         }
         //เช็คว่ากิน shield ได้ไหม
         if((shield.x >= snake[0].x-10 && shield.x <= snake[0].x+10) && (shield.y >= snake[0].y-10 && shield.y <= snake[0].y+10)){
@@ -196,7 +212,7 @@ var blueCount = 5;
         }
         count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
         if (count%6 == 0){ // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
-            if (casebomb == "on"){
+            if (casebomb == "on" && chktime == "on"){
                 spaceNoSnake();
                 bomb = this.space[Math.floor(Math.random() * this.space.length)];
                 boomset = "on"
@@ -236,6 +252,32 @@ var blueCount = 5;
                 }
             }
         }
+
+        if (chktime == "on"){
+            clockcount += 1;
+            console.log(clockcount);}/* ยังไม่เสร็จ
+        if (clockcount == 20){ // นาฬิกาหายไปเมื่อเวลากำหนด
+            clock.x = undefined;
+            clock.y = undefined;
+            chkclock = "on";
+            clockcount = 0;
+        }*/
+        if (snake[0].x == clock.x && snake[0].y == clock.y){ //กินนาฬิกาแล้วหายไปเวลาเพิ่มขึ้น
+            time += 3;
+            updateTime();
+            clock.x = undefined;
+            clock.y = undefined;
+            chkclock = "on";
+            clockcount = 0;
+        }
+        if (clockcount % 4 == 0){ // ทำให้เกิดนาฬิกา
+            if (chkclock == "on" && chktime == "on" && clockcount > 19){
+                spaceNoSnake();
+                clock = this.space[Math.floor(Math.random() * this.space.length)];
+                chkclock = "off";;
+            }
+        }
+    drawClock();
     drawFood();//เรียกฟังชั้นวาดอาหาร
     drawBomb();//เรียกฟังชั้นวาดระเบิด
     drawBoom();//เรียกฟังชั้นวาดแรงระเบิด
@@ -251,8 +293,7 @@ var blueCount = 5;
     function updateScore(){
         // แสดงคะแนนให้คนดู
         theScore.innerText = long-1; //optional: เอาความยาวมา -1 เพราะไม่อยากให้นับรวมส่วนหัวด้วย
-        highScore();
-    }
+        highScore();}
     function countdown(){
         //  ฟังก์ชันนับเวลา
         cd = setInterval(
@@ -260,18 +301,18 @@ var blueCount = 5;
             // ถ้ายังไม่หมดเวลา
             if (time > 0) {
                 // ลดเวลา
-                time--;
+                if (chktime == "on"){ // BUG บางทีมันหน่วงตรงนับ 20
+                    time--;
                 // อัพเดทเวลา
-                updateTime();
+                updateTime();}
             }
             // ถ้าหมดเวลา
-            else if (time == 0){
-                youDied.innerText = "Time out!"
+            else{
                 died();
                 console.log("END");
             }
         },1000)
-    }
+}
     function updateTime(){
         // แสดงเวลา
         theTime.innerText = time;
@@ -288,6 +329,7 @@ var blueCount = 5;
     }
     function died(){    //ฟังก์ชันตาย
         sound("gameover");  //เสียง Gameovers
+        chktime = "off";
         console.log("DIED!!!");
         document.getElementById('endGame').style.display = 'block'; //แสดงหน้า endGame ที่ซ่อนไว้
         total.innerText = high;     //คะแนน HighScore
