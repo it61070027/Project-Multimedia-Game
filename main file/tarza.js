@@ -17,7 +17,7 @@ var key_p = undefined;
 var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
 var long = 0; //ความยาวของตัวงู
 var high = 0; //score สุดท้าย
-var time = 20; //กำหนดเวลาของเกม
+var time = 60; //กำหนดเวลาของเกม
 var chkclock = "on"; // เช็คว่างูกินที่เพิ่มเวลาไปหรือยัง
 var bomb = {
     x:undefined,
@@ -44,6 +44,7 @@ var dx = 10;    //ความเร็วไอเทม
 var dy = 10;
 var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
+var blink = 0;
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'S' || key == 'D') {
@@ -110,8 +111,16 @@ var blueCount = 5;
                     color2 = "#ef648f";
                 }
             if (status == "cooldown"){
-                color1 = "pink";
-                color2 = "#ef648f";
+                    if(!(count % 1) || !(count % 2) || !(count % 3)){
+                        color1 = "pink";
+                        color2 = "#ef648f";
+                        blink++;
+                    }
+                    else{
+                        color1 = "#10e78b";
+                        color2 = "#ef648f";
+                        blink++;
+                    }
             }
                 ctx.shadowColor = "#F20505"; //สีshadow
                 ctx.shadowBlur = 10; //ขนาดshadow
@@ -223,7 +232,7 @@ var blueCount = 5;
         }
         //เช็คว่ากิน shield ได้ไหม
         if((shield.x >= snake[0].x-10 && shield.x <= snake[0].x+10) && (shield.y >= snake[0].y-10 && shield.y <= snake[0].y+10)){
-            shield.x = undefined;   //กินเสร็จแล้วไอเทมหาย (ยังไม่ได้)
+            shield.x = undefined;   //กินเสร็จแล้วไอเทมหาย
             shield.y = undefined;
             status = "mode_blue";
             shield_fly = 'off';
