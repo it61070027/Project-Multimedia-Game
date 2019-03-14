@@ -22,6 +22,7 @@ var bomb = {
     x:undefined,
     y:undefined
 }
+var shield_p = 0;
 var clock = {
     x:undefined,
     y:undefined
@@ -53,6 +54,9 @@ var blueCount = 5;
         }
         else if( key == 'M' ){
             status = "mode_blue"
+        }
+        else if (key == ']'){
+            time += 10;
         }
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -153,6 +157,7 @@ var blueCount = 5;
         }
         if(newx == food.x && newy == food.y){ //ถ้างูกินอาหารแล้วอาหารจะถูกสุ่มเกิดใหม่
             spaceNoSnake();
+            if (status == 'normal')shield_p++;
             sound("bite")   //เสียงกิน
             food = this.space[Math.floor(Math.random() * this.space.length)];
             }
@@ -207,7 +212,8 @@ var blueCount = 5;
                 shield.x += dx;
                 shield.y += dy;
         }
-        if(shield.x == undefined){  //สุ่มตำแหน่ง Shield (ขั้นทดลอง)
+        if(shield_p == 3){  //สุ่มตำแหน่ง Shield (ขั้นทดลอง)
+            shield_p = 0;
             shield = this.space[Math.floor(Math.random() * this.space.length)];
             var chk_ShieldX_born = 1;
             var chk_ShieldY_born = 1;
