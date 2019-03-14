@@ -1,6 +1,7 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var count = 0;
+var shield_fly = 'off';
 var clockcount = 0;
 var bombkill = "off";
 var chktime = "off"; //กำหนดตัวแปรเช็คการเริ่มกดปุ่มตัวแรก
@@ -157,7 +158,8 @@ var blueCount = 5;
         }
         if(newx == food.x && newy == food.y){ //ถ้างูกินอาหารแล้วอาหารจะถูกสุ่มเกิดใหม่
             spaceNoSnake();
-            if (status == 'normal')shield_p++;
+            if (status == 'normal' && shield_fly == 'off'){
+                shield_p++;}
             sound("bite")   //เสียงกิน
             food = this.space[Math.floor(Math.random() * this.space.length)];
             }
@@ -214,6 +216,7 @@ var blueCount = 5;
         }
         if(shield_p == 3){  //สุ่มตำแหน่ง Shield (ขั้นทดลอง)
             shield_p = 0;
+            shield_fly = 'on';
             shield = this.space[Math.floor(Math.random() * this.space.length)];
             var chk_ShieldX_born = 1;
             var chk_ShieldY_born = 1;
@@ -223,6 +226,7 @@ var blueCount = 5;
             shield.x = undefined;   //กินเสร็จแล้วไอเทมหาย (ยังไม่ได้)
             shield.y = undefined;
             status = "mode_blue";
+            shield_fly = 'off';
         }
         count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
         if (count%6 == 0){ // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
