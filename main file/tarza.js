@@ -46,11 +46,11 @@ var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
 var blink = 0;
 var pbomb3 = new Image();
-pbomb3.src = 'src/pic/bomb3.png';
+pbomb3.src = 'src/pic/b3.png';
 var pbomb2 = new Image();
-pbomb2.src = 'src/pic/bomb2.png';
+pbomb2.src = 'src/pic/b2.png';
 var pbomb1 = new Image();
-pbomb1.src = 'src/pic/bomb1.png';
+pbomb1.src = 'src/pic/b1.png';
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'S' || key == 'D') {
@@ -118,7 +118,7 @@ pbomb1.src = 'src/pic/bomb1.png';
             if(status == "mode_blue"){
                     color1 = "#10e78b";
                     color2 = "#ef648f";
-                }
+            }
             if (status == "cooldown"){
                     sound("cdtime");
                     if(!(count % 1) || !(count % 2) || !(count % 3)){
