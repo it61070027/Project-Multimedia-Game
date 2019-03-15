@@ -51,6 +51,8 @@ var pbomb2 = new Image();
 pbomb2.src = 'src/pic/b2.png';
 var pbomb1 = new Image();
 pbomb1.src = 'src/pic/b1.png';
+var pclock = new Image();
+pclock.src = 'src/pic/clock.gif';
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'S' || key == 'D') {
@@ -220,11 +222,12 @@ pbomb1.src = 'src/pic/b1.png';
             ctx.strokeRect(boom.x, 0, size, canvas.height);
         }
         function drawClock(){ //ฟังชั้นวาดระเบิด
-            ctx.shadowColor = "orange"; //สีshawdow
-            ctx.shadowBlur = 10; //ขนาดshadow
-            ctx.fillStyle = "orange"; //สี
-            ctx.fillRect(clock.x, clock.y, size, size); //สร้างรูป
-            ctx.strokeRect(clock.x, clock.y, size, size); //สร้างขอบ
+            // ctx.shadowColor = "orange"; //สีshawdow
+            // ctx.shadowBlur = 10; //ขนาดshadow
+            // ctx.fillStyle = "orange"; //สี
+            // ctx.fillRect(clock.x, clock.y, size, size); //สร้างรูป
+            // ctx.strokeRect(clock.x, clock.y, size, size); //สร้างขอบ
+            ctx.drawImage(pclock,clock.x,clock.y,size,size);
         }
         function drawShield(){//วาดไอเทม: โล่
             ctx.shadowColor = "aqua";
