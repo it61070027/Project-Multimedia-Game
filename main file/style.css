@@ -25,10 +25,11 @@ h2{
 #startGame{
     margin: auto;
     display: block;
-    position: relative;
-    top: 73%;
-    left: 38.5%;
-    z-index: -1;
+    position: absolute;
+    top: 70%;
+    left: 31.5%;
+    z-index: 100;
+    font-size: 3em
 }
 #keyW{
     height: 40px;

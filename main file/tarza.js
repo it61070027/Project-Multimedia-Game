@@ -68,7 +68,7 @@ pbomb1.src = 'src/pic/bomb1.png';
         else if (key == ']'){
             time += 10;
         }
-        
+
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
@@ -382,9 +382,9 @@ pbomb1.src = 'src/pic/bomb1.png';
         theTime.innerText = time;
 
         // ถ้าหมดเวลา ให้บอก
-        if (time == 0) {
-            status.innerHTML = "Gmae Over!!! <a href='#!' onclick='ready()'>play again</a>";
-        }
+        // if (time == 0) {
+        //     status.innerHTML = "Gmae Over!!! <a href='#!' onclick='ready()'>play again</a>";
+        // }
     }
     function highScore(){   //ฟังก์ชั่นเก็บ HighScore
         if((long-1) > high){
