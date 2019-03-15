@@ -17,7 +17,7 @@ var key_p = undefined;
 var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
 var long = 0; //ความยาวของตัวงู
 var high = 0; //score สุดท้าย
-var time = 60; //กำหนดเวลาของเกม
+var time = 30; //กำหนดเวลาของเกม
 var chkclock = "on"; // เช็คว่างูกินที่เพิ่มเวลาไปหรือยัง
 var bomb = {
     x:undefined,
@@ -45,7 +45,12 @@ var dy = 10;
 var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
 var blink = 0;
-var pic_bomb = document.getElementById('myBomb');
+var pbomb3 = new Image();
+pbomb3.src = 'src/pic/bomb3.png';
+var pbomb2 = new Image();
+pbomb2.src = 'src/pic/bomb2.png';
+var pbomb1 = new Image();
+pbomb1.src = 'src/pic/bomb1.png';
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'S' || key == 'D') {
@@ -57,6 +62,8 @@ var pic_bomb = document.getElementById('myBomb');
         }
         else if( key == 'M' ){
             status = "mode_blue"
+            document.getElementById('bgm').pause(); //Pause เสียง BGM
+            sound("blue");
         }
         else if (key == ']'){
             time += 10;
@@ -112,15 +119,16 @@ var pic_bomb = document.getElementById('myBomb');
                     color2 = "#ef648f";
                 }
             if (status == "cooldown"){
+                    sound("cdtime");
                     if(!(count % 1) || !(count % 2) || !(count % 3)){
                         color1 = "pink";
                         color2 = "#ef648f";
-                        blink++;
+                        //blink++;
                     }
                     else{
                         color1 = "#10e78b";
                         color2 = "#ef648f";
-                        blink++;
+                        //blink++;
                     }
             }
                 ctx.shadowColor = "#F20505"; //สีshadow
@@ -184,7 +192,16 @@ var pic_bomb = document.getElementById('myBomb');
         })
         }
         function drawBomb(){ //ฟังชั้นวาดระเบิด
-            ctx.drawImage(pic_bomb,bomb.x,bomb.y)
+            if(timebomb >= 3){
+                ctx.drawImage(pbomb1,bomb.x,bomb.y,size,size);
+            }
+            else if(timebomb >= 2){
+                ctx.drawImage(pbomb2,bomb.x,bomb.y,size,size);
+            }
+            else if(timebomb >= 1){
+                ctx.drawImage(pbomb3,bomb.x,bomb.y,size,size);
+            }
+
             // ctx.shadowColor = "purple"; //สีshawdow
             // ctx.shadowBlur = 10; //ขนาดshadow
             // ctx.fillStyle = "purple"; //สี
@@ -238,6 +255,8 @@ var pic_bomb = document.getElementById('myBomb');
             shield.y = undefined;
             status = "mode_blue";
             shield_fly = 'off';
+            sound("blue");
+            document.getElementById('bgm').pause();
         }
         count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
         if (count%6 == 0){ // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
@@ -309,12 +328,13 @@ var pic_bomb = document.getElementById('myBomb');
         if (status == "cooldown"){
             countchage = (countchage*10 + 0.1*10) /10;
             if (countchage == 3){
+                document.getElementById('blue').pause();    //Pause เสียง Mode Blue
+                document.getElementById('bgm').play();    //Play BGM ต่อ
                 status = "normal";
                 countchage = 0;
             }
-
         }
-    drawClock();
+    drawClock();//เรียกฟังก์ชันวาดนาฬิกา
     drawFood();//เรียกฟังชั้นวาดอาหาร
     drawBomb();//เรียกฟังชั้นวาดระเบิด
     drawBoom();//เรียกฟังชั้นวาดแรงระเบิด
@@ -345,6 +365,8 @@ var pic_bomb = document.getElementById('myBomb');
             }
             // ถ้าหมดเวลา
             else{
+                console.log('sfdsdfs');
+                youDied.innerText = "Time Out!!";
                 died();
                 console.log("END");
             }
@@ -356,7 +378,7 @@ var pic_bomb = document.getElementById('myBomb');
 
         // ถ้าหมดเวลา ให้บอก
         if (time == 0) {
-            status.innerHTML = "Game Over!! <a href='#!' onclick='ready()'>play again</a>";
+            status.innerHTML = "Gmae Over!!! <a href='#!' onclick='ready()'>play again</a>";
         }
     }
     function highScore(){   //ฟังก์ชั่นเก็บ HighScore
@@ -372,7 +394,8 @@ var pic_bomb = document.getElementById('myBomb');
         total.innerText = high;     //คะแนน HighScore
         final.innerText = long-1;   //คะแนน FinalScore
         document.getElementById('bgm').pause(); //Pause เสียง BGM
-        document.getElementById("clock").pause(); //Pause เสียง clock (บางทีมันชอบเกินมา)
+        document.getElementById('clock').pause(); //Pause เสียง clock (บางทีมันชอบเกินมา)
+        document.getElementById('blue').pause();    //Pause เสียง Mode Blue
         clearInterval(game); //หยุดการทำงาน
 
     }
