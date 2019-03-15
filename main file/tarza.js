@@ -12,9 +12,9 @@ var key = { //กำหนดตค่าปุ่มเริ่มต้น
     move:undefined
 }
 var countchage = 0;
-var size = 20; //ขนาดบล็อคตัวงู
+var size = 25; //ขนาดบล็อคตัวงู
 var key_p = undefined;
-var snake = [{x:canvas.width/2-10, y:canvas.height/2-10}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
+var snake = [{x:canvas.width/2-12.5, y:canvas.height/2-12.5}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
 var long = 0; //ความยาวของตัวงู
 var high = 0; //score สุดท้าย
 var time = 30; //กำหนดเวลาของเกม
@@ -40,8 +40,8 @@ var shield = {
     x:undefined,
     y:undefined,
 }
-var dx = 10;    //ความเร็วไอเทม
-var dy = 10;
+var dx = 12.5;    //ความเร็วไอเทม
+var dy = 12.5;
 var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
 var blink = 0;
@@ -73,8 +73,8 @@ pbomb1.src = 'src/pic/b1.png';
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
         snake.push({
-            x:canvas.width/2-10,
-            y:(canvas.height/2-10)+(i*size)
+            x:canvas.width/2-12.5,
+            y:(canvas.height/2-12.5)+(i*size)
         })
     }
     function spaceNoSnake(){  //พื้นที่ที่ไม่มีงู
@@ -251,7 +251,7 @@ pbomb1.src = 'src/pic/b1.png';
             var chk_ShieldY_born = 1;
         }
         //เช็คว่ากิน shield ได้ไหม
-        if((shield.x >= snake[0].x-10 && shield.x <= snake[0].x+10) && (shield.y >= snake[0].y-10 && shield.y <= snake[0].y+10)){
+        if((shield.x >= snake[0].x-12.5 && shield.x <= snake[0].x+12.5) && (shield.y >= snake[0].y-12.5 && shield.y <= snake[0].y+12.5)){
             shield.x = undefined;   //กินเสร็จแล้วไอเทมหาย
             shield.y = undefined;
             status = "mode_blue";

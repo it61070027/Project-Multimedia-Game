@@ -6,10 +6,11 @@ border: 2px solid #1FD01F;
 box-shadow: 0px 0px 20px #1FEA1F;
 background-color: #1F1F1F;
 position: absolute;
-top: 10%;
-left: 30%;
-margin-top: auto;
-margin-left: auto;
+top: 0;
+left: 0;
+bottom: 0;
+right: 0;
+margin: auto;
 }
 #myBomb{
     height: 0;
