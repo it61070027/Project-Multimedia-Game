@@ -68,6 +68,7 @@ pbomb1.src = 'src/pic/bomb1.png';
         else if (key == ']'){
             time += 10;
         }
+        
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
@@ -257,6 +258,8 @@ pbomb1.src = 'src/pic/bomb1.png';
             shield_fly = 'off';
             sound("pop");
             sound("blue");
+            chk_ShieldX_born = 1;
+            chk_ShieldY_born = 1;
             document.getElementById('bgm').pause();
         }
         count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
