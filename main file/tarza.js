@@ -78,8 +78,8 @@ pbomb1.src = 'src/pic/bomb1.png';
     }
     function spaceNoSnake(){  //พื้นที่ที่ไม่มีงู
         this.space = [] //array เก็บ พื้นที่
-        for (var i = 0; i <= canvas.width-20; i += 20){ // แกน x
-            for(var j = 0; j <= canvas.height-20; j += 20){ // แกน y
+        for (var i = 0; i <= canvas.width-size; i += size){ // แกน x
+            for(var j = 0; j <= canvas.height-size; j += size){ // แกน y
                 for(let y = 0; y < snake.length; y++){
                     if ((snake[y].x == i && snake[y].y == j) || (snake[y].x == food.x && snake[y].y == food.y) || (snake[y].x == bomb.x && snake[y].x == bomb.y)){ //พื้นที่ไม่มีอะไรทับงู
                         break}
@@ -255,6 +255,7 @@ pbomb1.src = 'src/pic/bomb1.png';
             shield.y = undefined;
             status = "mode_blue";
             shield_fly = 'off';
+            sound("pop");
             sound("blue");
             document.getElementById('bgm').pause();
         }
@@ -317,6 +318,7 @@ pbomb1.src = 'src/pic/bomb1.png';
             clock.y = undefined;
             chkclock = "on";
             clockcount = 0;
+            sound("blink");
         }
         if (clockcount % 4 == 0){ // ทำให้เกิดนาฬิกา
             if (chkclock == "on" && chktime == "on" && clockcount > 19){
