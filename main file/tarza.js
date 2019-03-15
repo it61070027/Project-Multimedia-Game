@@ -162,19 +162,19 @@ pclock.src = 'src/pic/clock.gif';
         newy = (newy >= canvas.height?0:newy < 0?canvas.height:newy); //ถ้างูชนกำแพงงูจะวาปมากำแพงตรงข้ามในแนวแกน y
         if (newx != snake[0].x || newy != snake[0].y){
             for (let i = 0; i < snake.length; i++){ //เช็คว่างูชนรึยัง
-            if((newx == snake[i].x && newy == snake[i].y)|| (newx == bomb.x && newy == bomb.y)){
-                //เช็คว่าอยู่ mode อมตะหรือไม่
-                if(status == "normal"){
-                    ctx.fillStyle = "green";
-                    ctx.fillRect(snake[i].x, snake[i].y, size, size);
-                    ctx.strokeRect(snake[i].x, snake[i].y, size, size);
-                    died();
+                if((newx == snake[i].x && newy == snake[i].y)|| (newx == bomb.x && newy == bomb.y)){
+                    //เช็คว่าอยู่ mode อมตะหรือไม่
+                    if(status == "normal"){
+                        ctx.fillStyle = "green";
+                        ctx.fillRect(snake[i].x, snake[i].y, size, size);
+                        ctx.strokeRect(snake[i].x, snake[i].y, size, size);
+                        died();
+                    }
+                    else if(status == "mode_blue"){
+                        status = "cooldown";
+                        break;
+                    }
                 }
-                else if(status == "mode_blue"){
-                    status = "cooldown";
-                    break;
-                }
-            }
             }
         }
         if(newx == food.x && newy == food.y){ //ถ้างูกินอาหารแล้วอาหารจะถูกสุ่มเกิดใหม่
@@ -204,7 +204,6 @@ pclock.src = 'src/pic/clock.gif';
             else if(timebomb >= 1){
                 ctx.drawImage(pbomb3,bomb.x,bomb.y,size,size);
             }
-
             // ctx.shadowColor = "purple"; //สีshawdow
             // ctx.shadowBlur = 10; //ขนาดshadow
             // ctx.fillStyle = "purple"; //สี
@@ -318,7 +317,7 @@ pclock.src = 'src/pic/clock.gif';
             clockcount = 0;
         }*/
         if (snake[0].x == clock.x && snake[0].y == clock.y){ //กินนาฬิกาแล้วหายไปเวลาเพิ่มขึ้น
-            time += 3;
+            time += 6;
             updateTime();
             clock.x = undefined;
             clock.y = undefined;
