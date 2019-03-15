@@ -402,6 +402,7 @@ pbomb1.src = 'src/pic/b1.png';
         document.getElementById('clock').pause(); //Pause เสียง clock (บางทีมันชอบเกินมา)
         document.getElementById('blue').pause();    //Pause เสียง Mode Blue
         clearInterval(game); //หยุดการทำงาน
+        clearInterval(cd); //หยุดเวลา
 
     }
     function start(){
