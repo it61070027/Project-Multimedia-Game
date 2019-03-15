@@ -11,6 +11,9 @@ left: 30%;
 margin-top: auto;
 margin-left: auto;
 }
+#myBomb{
+    height: 0;
+}
 h2{
     color: white;
     font-family: 'Coiny', cursive;

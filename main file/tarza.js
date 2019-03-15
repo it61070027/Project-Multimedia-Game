@@ -45,6 +45,7 @@ var dy = 10;
 var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
 var blink = 0;
+var pic_bomb = document.getElementById('myBomb');
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'S' || key == 'D') {
@@ -183,14 +184,7 @@ var blink = 0;
         })
         }
         function drawBomb(){ //ฟังชั้นวาดระเบิด
-            const image = new Image(20, 20); // Using optional size for image
-            image.onload = drawImageActualSize; // Draw when image has loaded
-
-            // Load an image of intrinsic size 300x227 in CSS pixels
-            image.src = "src/pic/bomb.gif";
-            image.onload = function(){
-                ctx.drawImage(this, bomb.x, bomb.y, this.width, this.height);
-              }
+            ctx.drawImage(pic_bomb,bomb.x,bomb.y)
             // ctx.shadowColor = "purple"; //สีshawdow
             // ctx.shadowBlur = 10; //ขนาดshadow
             // ctx.fillStyle = "purple"; //สี
