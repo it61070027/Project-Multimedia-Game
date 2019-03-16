@@ -202,7 +202,7 @@ pshield.src = 'src/pic/shield.png';
             y:newy
         })
         }
-        var r = "hsl("+(120-(time*20))+",100%, 50%)"
+        var r = "hsl("+(-10+(timebomb*10))+",100%, 50%)"
         function drawBomb(){ //ฟังชั้นวาดระเบิด
             if(timebomb >= 4){
                 ctx.shadowColor = r;
