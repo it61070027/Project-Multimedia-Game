@@ -126,10 +126,12 @@ pshield.src = 'src/pic/shield.png';
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         var color1 = "#BF0404";
         var color2 = "#ef648f";
+        var shadow1 = "#F20505";
         for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
             if(status == "mode_blue"){
                     color1 = "#10e78b";
                     color2 = "#ef648f";
+                    shadow1 = "#00ffd880";
             }
             if (status == "cooldown"){
                     sound("cdtime");
@@ -144,7 +146,7 @@ pshield.src = 'src/pic/shield.png';
                         //blink++;
                     }
             }
-                ctx.shadowColor = "#F20505"; //สีshadow
+                ctx.shadowColor = shadow1; //สีshadow
                 ctx.shadowBlur = 10; //ขนาดshadow
                 ctx.fillStyle = color1; //สี
                 ctx.fillRect(snake[i].x, snake[i].y, size, size);
