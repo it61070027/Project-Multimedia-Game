@@ -46,6 +46,7 @@ var shield = {
 }
 var dx = 12.5;    //ความเร็วไอเทม
 var dy = 12.5;
+var countshield = 1;
 var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
 var blink = 0;
@@ -204,18 +205,28 @@ pshield.src = 'src/pic/shield.png';
         }
         function drawBomb(){ //ฟังชั้นวาดระเบิด
             if(timebomb >= 4){
+                ctx.shadowColor = "#FFF60C";
+                ctx.shadowBlur = 10;
                 ctx.drawImage(pbomb1,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 3){
+                ctx.shadowColor = "#FFF60C";
+                ctx.shadowBlur = 10;
                 ctx.drawImage(pbombr,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 2){
+                ctx.shadowColor = "#FFF60C";
+                ctx.shadowBlur = 10;
                 ctx.drawImage(pbomb2,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 1){
+                ctx.shadowColor = "#FFF60C";
+                ctx.shadowBlur = 10;
                 ctx.drawImage(pbombr,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 0){
+                ctx.shadowColor = "#FFF60C";
+                ctx.shadowBlur = 10;
                 ctx.drawImage(pbomb3,bomb.x,bomb.y,size,size);
             }
             // ctx.shadowColor = "purple"; //สีshawdow
@@ -226,13 +237,11 @@ pshield.src = 'src/pic/shield.png';
         }
 
         function drawBoom(){//วาดรัศมีระเบิด
-            ctx.shadowColor = "yellow";
-            ctx.shadowBlur = 10;
-            ctx.fillStyle = "yellow";
+            ctx.shadowColor = "#FFF60C";
+            ctx.shadowBlur = 20;
+            ctx.fillStyle = "#FFF60C";
             ctx.fillRect(0, boom.y, canvas.width, size);
             ctx.fillRect(boom.x, 0, size, canvas.height);
-            ctx.strokeRect(0, boom.y, canvas.width, size);
-            ctx.strokeRect(boom.x, 0, size, canvas.height);
         }
         function drawClock(){ //ฟังชั้นวาดระเบิด
             // ctx.shadowColor = "orange"; //สีshawdow
@@ -240,6 +249,8 @@ pshield.src = 'src/pic/shield.png';
             // ctx.fillStyle = "orange"; //สี
             // ctx.fillRect(clock.x, clock.y, size, size); //สร้างรูป
             // ctx.strokeRect(clock.x, clock.y, size, size); //สร้างขอบ
+            ctx.shadowColor = "#F20505"; //สีshadow
+            ctx.shadowBlur = 10; //ขนาดshadow
             ctx.drawImage(pclock,clock.x,clock.y,size,size);
         }
         function drawShield(){//วาดไอเทม: โล่
@@ -280,6 +291,18 @@ pshield.src = 'src/pic/shield.png';
             chk_ShieldX_born = 1;
             chk_ShieldY_born = 1;
             document.getElementById('bgm').pause();
+        }
+        if (chktime == "on" && shield_fly == 'on'){
+            countshield = (countshield*10 + 0.1*10)/10;
+        }
+        if (countshield%16 == 0){
+            shield.x = undefined;   //กินเสร็จแล้วไอเทมหาย
+            shield.y = undefined;
+            shield_p = 0;
+            shield_fly = 'off';
+            chk_ShieldX_born = 1;
+            chk_ShieldY_born = 1;
+            countshield = 1;
         }
         if (chktime == "on"){
             count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
