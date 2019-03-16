@@ -12,7 +12,7 @@ var key = { //กำหนดตค่าปุ่มเริ่มต้น
     move:undefined
 }
 var randomtimeborn = [5.5, 6, 7];
-var randomtimestill = [8.5, 9.5];
+var randomtimestill = [9, 10];
 var rs = randomtimestill[Math.floor(Math.random() * randomtimestill.length)];
 var rb = randomtimeborn[Math.floor(Math.random() * randomtimeborn.length)];
 var countchage = 0;
@@ -76,6 +76,7 @@ pshield.src = 'src/pic/blue2.png';
         }
         else if (key == ']'){
             time += 10;
+            updateTime();
         }
 
     }
@@ -133,13 +134,13 @@ pshield.src = 'src/pic/blue2.png';
             }
             if (status == "cooldown"){
                     sound("cdtime");
-                    if(!(count % 1) || !(count % 2) || !(count % 3)){
+                    if((0 <= countchage && countchage <= 0.4) || (0.8 <= countchage && countchage <= 1.2) || (1.6 <= countchage && countchage <= 2) || (2 <= countchage && countchage <= 2.4) || (2.8 <= countchage && countchage <= 3)){
                         color1 = "pink";
                         color2 = "#ef648f";
                         //blink++;
                     }
                     else{
-                        color1 = "#10e78b";
+                        color1 = "#BA01FF";
                         color2 = "#ef648f";
                         //blink++;
                     }
