@@ -84,7 +84,7 @@ pclock.src = 'src/pic/clock.gif';
         for (var i = 0; i <= canvas.width-size; i += size){ // แกน x
             for(var j = 0; j <= canvas.height-size; j += size){ // แกน y
                 for(let y = 0; y < snake.length; y++){
-                    if ((snake[y].x == i && snake[y].y == j) || (snake[y].x == food.x && snake[y].y == food.y) || (snake[y].x == bomb.x && snake[y].x == bomb.y)){ //พื้นที่ไม่มีอะไรทับงู
+                    if ((snake[y].x == i && snake[y].y == j) || (i == food.x && j == food.y) || (i == bomb.x && j == bomb.y) || (i == clock.x && j == clock.y)){ //พื้นที่ไม่มีอะไรทับงู
                         break}
                     else if (y == snake.length-1) space.push({x:i, y:j})
                 }
