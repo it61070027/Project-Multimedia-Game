@@ -84,7 +84,6 @@ pshield.src = 'src/pic/shield.png';
             y:(canvas.height/2-12.5)+(i*size)
         })
     }
-    sound('bgm');
     function spaceNoSnake(){  //พื้นที่ที่ไม่มีงู
         this.space = [] //array เก็บ พื้นที่
         for (var i = 0; i <= canvas.width-size; i += size){ // แกน x
@@ -202,7 +201,7 @@ pshield.src = 'src/pic/shield.png';
             y:newy
         })
         }
-        var r = "hsl("+(120-(time*20))+",100%, 50%)"
+        var r = "hsl("+(-10+(timebomb*10))+",100%, 50%)"
         function drawBomb(){ //ฟังชั้นวาดระเบิด
             if(timebomb >= 4){
                 ctx.shadowColor = r;
