@@ -110,7 +110,7 @@ pshield.src = 'src/pic/shield.png';
     function draw(){ //ฟังชั่นในการสร้างภาพทั้งหมด
         if ((snake[0].x == bomb.x || snake[0].y == bomb.y) && bombkill == "on"){ //โดนระเบิดตาย
             if(status == "normal"){
-                ctx.fillStyle = "green";
+                ctx.fillStyle = "#42ff00";
                 ctx.fillRect(snake[0].x, snake[0].y, size, size);
                 ctx.strokeRect(snake[0].x, snake[0].y, size, size);
                 died();
@@ -129,8 +129,8 @@ pshield.src = 'src/pic/shield.png';
         var shadow1 = "#F20505";
         for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
             if(status == "mode_blue"){
-                    color1 = "#10e78b";
-                    color2 = "#ef648f";
+                    color1 = "#e0f1ff";
+                    color2 = "#0b5c9c";
                     shadow1 = "#00ffd880";
             }
             if (status == "cooldown"){

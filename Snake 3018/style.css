@@ -67,7 +67,7 @@ h2{
 }
 #grave{
     position: relative;
-    top: 150px;
+    top: 100px;
     bottom: 50px;
     left: 400px;
     height: 500px;
@@ -76,16 +76,16 @@ h2{
 #youDied{
     position: relative;
     bottom: 500px;
-    font-size: 200px;
+    font-size: 150px;
     margin: 0px;
     color: aliceblue;
-    font-family: 'Kaushan Script', cursive;
+    font-family: 'Monoton', cursive;;
 }
 #nscore{
     font-size: 30px;
     position: relative;
     bottom: 250px;
-    left: 400px;
+    left: 350px;
 }
 button{
     position: relative;
