@@ -203,30 +203,31 @@ pshield.src = 'src/pic/shield.png';
             y:newy
         })
         }
+        var r = "hsl("+(51-timebomb*10)+",100%, 50%)"
         function drawBomb(){ //ฟังชั้นวาดระเบิด
             if(timebomb >= 4){
-                ctx.shadowColor = "#FFF60C";
-                ctx.shadowBlur = 10;
+                ctx.shadowColor = r;
+                ctx.shadowBlur = (timebomb*18);
                 ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 3){
-                ctx.shadowColor = "#FFF60C";
-                ctx.shadowBlur = 10;
+                ctx.shadowColor = r;
+                ctx.shadowBlur = (timebomb*18);
                 ctx.drawImage(pbombr,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 2){
-                ctx.shadowColor = "#FFF60C";
-                ctx.shadowBlur = 10;
+                ctx.shadowColor = r;
+                ctx.shadowBlur = (timebomb*18);
                 ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 1){
-                ctx.shadowColor = "#FFF60C";
-                ctx.shadowBlur = 10;
+                ctx.shadowColor = r;
+                ctx.shadowBlur = (timebomb*18);
                 ctx.drawImage(pbombr,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 0){
-                ctx.shadowColor = "#FFF60C";
-                ctx.shadowBlur = 10;
+                ctx.shadowColor = r;
+                ctx.shadowBlur = (timebomb*18);
                 ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             // ctx.shadowColor = "purple"; //สีshawdow
@@ -235,7 +236,7 @@ pshield.src = 'src/pic/shield.png';
             // ctx.fillRect(bomb.x, bomb.y, size, size); //สร้างรูป
             // ctx.strokeRect(bomb.x, bomb.y, size, size); //สร้างขอบ
         }
-
+        console.log(timebomb);
         function drawBoom(){//วาดรัศมีระเบิด
             ctx.shadowColor = "#FFF60C";
             ctx.shadowBlur = 20;
