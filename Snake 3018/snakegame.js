@@ -58,6 +58,9 @@ var pclock = new Image();
 pclock.src = 'src/pic/energyball.png';
 var pshield = new Image();
 pshield.src = 'src/pic/shield.png';
+var x = document.getElementById("bgm");
+x.autoplay = true;
+x.load();
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'D') {
