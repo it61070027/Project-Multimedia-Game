@@ -1,5 +1,7 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+var color_p = ["hsl(0, 100%, 47%)","hsl(24, 100%, 50%)","hsl(54, 100%, 50%)","hsl(73, 91%, 55%)","hsl(180, 100%, 47%)","hsl(240, 100%, 40%)","hsl(288, 100%, 50%)"]
+var color_p2 = ["hsl(0, 75%, 47%)","hsl(24, 75%, 50%)","hsl(54, 75%, 50%)","hsl(73, 70%, 55%)","hsl(180, 75%, 47%)","hsl(240, 75%, 40%)","hsl(288, 75%, 50%)"]
 var count = 0;
 var shield_fly = 'off';
 var clockcount = 0;
@@ -58,6 +60,9 @@ var pclock = new Image();
 pclock.src = 'src/pic/energyball.png';
 var pshield = new Image();
 pshield.src = 'src/pic/shield.png';
+var numc = 0;
+var ant = undefined;
+var ant2 = undefined;
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'D') {
@@ -103,6 +108,19 @@ pshield.src = 'src/pic/shield.png';
     })
 
     function draw(){ //ฟังชั่นในการสร้างภาพทั้งหมด
+        if (status == "mode_blue"){
+            if (count%0.5 == 0){
+                numc = Math.floor(Math.random() * color_p.length);
+                ant = "2px solid "+color_p2[numc];
+                myCanvas.style.border = ant;
+                ant2 = "0px 0px 80px "+color_p[numc];
+                myCanvas.style.boxShadow = ant2;
+            }
+        }
+        else{
+            myCanvas.style.border= "2px solid #1FD01F";
+            myCanvas.style.boxShadow= "0px 0px 20px #1FEA1F";
+        }
         if ((snake[0].x == bomb.x || snake[0].y == bomb.y) && bombkill == "on"){ //โดนระเบิดตาย
             if(status == "normal"){
                 ctx.fillStyle = "#42ff00";
@@ -122,11 +140,13 @@ pshield.src = 'src/pic/shield.png';
         var color1 = "#BF0404";
         var color2 = "#ef648f";
         var shadow1 = "#F20505";
+        var sc = 10;
         for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
             if(status == "mode_blue"){
                     color1 = "#e0f1ff";
-                    color2 = "#0b5c9c";
-                    shadow1 = "#00ffd880";
+                    color2 = color_p2[numc];
+                    shadow1 = color_p[numc];
+                    sc = 20;
             }
             if (status == "cooldown"){
                     sound("cdtime");
@@ -142,7 +162,7 @@ pshield.src = 'src/pic/shield.png';
                     }
             }
                 ctx.shadowColor = shadow1; //สีshadow
-                ctx.shadowBlur = 10; //ขนาดshadow
+                ctx.shadowBlur = sc; //ขนาดshadow
                 ctx.fillStyle = color1; //สี
                 ctx.fillRect(snake[i].x, snake[i].y, size, size);
                 ctx.strokeStyle = color2;
@@ -387,6 +407,8 @@ pshield.src = 'src/pic/shield.png';
                 countchage = 0;
             }
         }
+
+    
     drawClock();//เรียกฟังก์ชันวาดนาฬิกา
     drawFood();//เรียกฟังชั้นวาดอาหาร
     drawBomb();//เรียกฟังชั้นวาดระเบิด
@@ -461,6 +483,7 @@ pshield.src = 'src/pic/shield.png';
         var song = document.getElementById(id);
         song.play();
         if(id == "bgm" || id == "blue"){
-            song.volume = .3;
+            song.volume = 0.3;
         }
     }
+    
