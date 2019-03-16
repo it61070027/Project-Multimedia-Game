@@ -464,5 +464,5 @@ pshield.src = 'src/pic/shield.png';
     function sound(id){ //ฟังก์ชันใส่เสียง
         var song = document.getElementById(id);
         song.play();
-        song.volume = 0.1;
+        song.volume = 0.3;
     }
