@@ -12,7 +12,7 @@ var key = { //กำหนดตค่าปุ่มเริ่มต้น
     move:undefined
 }
 var randomtimeborn = [5.5, 6, 7];
-var randomtimestill = [8.5, 9.5];
+var randomtimestill = [9, 10];
 var rs = randomtimestill[Math.floor(Math.random() * randomtimestill.length)];
 var rb = randomtimeborn[Math.floor(Math.random() * randomtimeborn.length)];
 var countchage = 0;
@@ -50,18 +50,16 @@ var countshield = 1;
 var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
 var blink = 0;
+var pfood = new Image();
+pfood.src = 'src/pic/red.png';
 var pbombr = new Image();
-pbombr.src = 'src/pic/neon ball/pr1.png';
-var pbomb3 = new Image();
-pbomb3.src = 'src/pic/neon ball/gr.png';
-var pbomb2 = new Image();
-pbomb2.src = 'src/pic/neon ball/gr.png';
-var pbomb1 = new Image();
-pbomb1.src = 'src/pic/neon ball/gr.png';
+pbombr.src = 'src/pic/bmbr.png';
+var pbomb = new Image();
+pbomb.src = 'src/pic/bmbg.png';
 var pclock = new Image();
-pclock.src = 'src/pic/time.png';
+pclock.src = 'src/pic/yellow.png';
 var pshield = new Image();
-pshield.src = 'src/pic/shield.png';
+pshield.src = 'src/pic/blue2.png';
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'D') {
@@ -78,6 +76,7 @@ pshield.src = 'src/pic/shield.png';
         }
         else if (key == ']'){
             time += 10;
+            updateTime();
         }
 
     }
@@ -135,13 +134,13 @@ pshield.src = 'src/pic/shield.png';
             }
             if (status == "cooldown"){
                     sound("cdtime");
-                    if(!(count % 1) || !(count % 2) || !(count % 3)){
+                    if((0 <= countchage && countchage <= 0.4) || (0.8 <= countchage && countchage <= 1.2) || (1.6 <= countchage && countchage <= 2) || (2 <= countchage && countchage <= 2.4) || (2.8 <= countchage && countchage <= 3)){
                         color1 = "pink";
                         color2 = "#ef648f";
                         //blink++;
                     }
                     else{
-                        color1 = "#10e78b";
+                        color1 = "#BA01FF";
                         color2 = "#ef648f";
                         //blink++;
                     }
@@ -156,11 +155,9 @@ pshield.src = 'src/pic/shield.png';
 
 
         function drawFood(){
-            ctx.shadowColor = "red";
+            ctx.shadowColor = "#FFF60C";
             ctx.shadowBlur = 10;
-            ctx.fillStyle = "white"; //สร้างอาหาร
-            ctx.fillRect(food.x, food.y, size, size);
-            ctx.strokeRect(food.x, food.y, size, size);
+            ctx.drawImage(pfood,food.x,food.y,size,size);
         }
         let newx = snake[0].x; // ให้พิกัดใหม่มีค่าเท่ากับหัวงู
         let newy = snake[0].y;
@@ -210,7 +207,7 @@ pshield.src = 'src/pic/shield.png';
             if(timebomb >= 4){
                 ctx.shadowColor = "#FFF60C";
                 ctx.shadowBlur = 10;
-                ctx.drawImage(pbomb1,bomb.x,bomb.y,size,size);
+                ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 3){
                 ctx.shadowColor = "#FFF60C";
@@ -220,7 +217,7 @@ pshield.src = 'src/pic/shield.png';
             else if(timebomb >= 2){
                 ctx.shadowColor = "#FFF60C";
                 ctx.shadowBlur = 10;
-                ctx.drawImage(pbomb2,bomb.x,bomb.y,size,size);
+                ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 1){
                 ctx.shadowColor = "#FFF60C";
@@ -230,7 +227,7 @@ pshield.src = 'src/pic/shield.png';
             else if(timebomb >= 0){
                 ctx.shadowColor = "#FFF60C";
                 ctx.shadowBlur = 10;
-                ctx.drawImage(pbomb3,bomb.x,bomb.y,size,size);
+                ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             // ctx.shadowColor = "purple"; //สีshawdow
             // ctx.shadowBlur = 10; //ขนาดshadow
