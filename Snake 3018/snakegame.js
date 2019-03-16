@@ -53,11 +53,11 @@ var blink = 0;
 var pbombr = new Image();
 pbombr.src = 'src/pic/pr.png';
 var pbomb3 = new Image();
-pbomb3.src = 'src/pic/pp.png';
+pbomb3.src = 'src/pic/p3.png';
 var pbomb2 = new Image();
-pbomb2.src = 'src/pic/pp.png';
+pbomb2.src = 'src/pic/p2.png';
 var pbomb1 = new Image();
-pbomb1.src = 'src/pic/pp.png';
+pbomb1.src = 'src/pic/p1.png';
 var pclock = new Image();
 pclock.src = 'src/pic/time.png';
 var pshield = new Image();
@@ -88,6 +88,7 @@ pshield.src = 'src/pic/shield.png';
             y:(canvas.height/2-12.5)+(i*size)
         })
     }
+    sound('bgm');
     function spaceNoSnake(){  //พื้นที่ที่ไม่มีงู
         this.space = [] //array เก็บ พื้นที่
         for (var i = 0; i <= canvas.width-size; i += size){ // แกน x
@@ -349,7 +350,7 @@ pshield.src = 'src/pic/shield.png';
             }
         }
 
-        
+
         if (chktime == "on"){
             clockcount = (clockcount*10 + 0.1*10)/10;
         }
