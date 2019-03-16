@@ -3,13 +3,13 @@ html{
     overflow: hidden;
 }
 body{
-    background-image: url(src/pic/bg1.gif);
+    background-image: url(../src/pic/bg1.gif);
     background-repeat: none;
     background-size: cover;
 }
 @font-face {
     font-family: spaceage;
-    src: url(src/fonts/spaceage.ttf);
+    src: url(../src/fonts/spaceage.ttf);
   }
 #myCanvas{
     border: 2px solid #1FD01F;
@@ -58,7 +58,7 @@ h2{
     width: 1080px;
     height: 700px;
     display: none;
-    background-image: url(src/pic/snake_grey.gif);
+    background-image: url(../src/pic/snake_grey.gif);
     background-repeat: no-repeat;
     background-size: contain;
     border-color: rgb(253, 253, 253);

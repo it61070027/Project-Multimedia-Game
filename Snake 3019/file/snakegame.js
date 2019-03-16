@@ -53,13 +53,13 @@ var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
 var blink = 0;
 var pbombr = new Image();
-pbombr.src = 'src/pic/bmbr.png';
+pbombr.src = '../src/pic/bmbr.png';
 var pbomb = new Image();
-pbomb.src = 'src/pic/bmbg.png';
+pbomb.src = '../src/pic/bmbg.png';
 var pclock = new Image();
-pclock.src = 'src/pic/energyball.png';
+pclock.src = '../src/pic/energyball.png';
 var pshield = new Image();
-pshield.src = 'src/pic/shield.png';
+pshield.src = '../src/pic/shield.png';
 var numc = 0;
 var ant = undefined;
 var ant2 = undefined;
@@ -147,7 +147,7 @@ var ant2 = undefined;
                     color1 = "#e0f1ff";
                     color2 = color_p2[numc];
                     shadow1 = color_p[numc];
-                    document.querySelector("body").style.backgroundImage = 'url("src/pic/climax.gif")';
+                    document.querySelector("body").style.backgroundImage = 'url("../src/pic/climax.gif")';
                     sc = 20;
             }
             if (status == "cooldown"){
@@ -395,7 +395,7 @@ var ant2 = undefined;
             if (countchage == 3){
                 document.getElementById('blue').pause();    //Pause เสียง Mode Blue
                 document.getElementById('bgm').play();    //Play BGM ต่อ
-                document.querySelector("body").style.backgroundImage = 'url("src/pic/bg1.gif")';
+                document.querySelector("body").style.backgroundImage = 'url("../src/pic/bg1.gif")';
                 status = "normal";
                 countchage = 0;
             }
