@@ -76,7 +76,6 @@ pshield.src = 'src/pic/shield.png';
             time += 10;
             updateTime();
         }
-
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
