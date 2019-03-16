@@ -50,14 +50,16 @@ var countshield = 1;
 var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
 var blink = 0;
+var pfood = new Image();
+pfood.src = 'src/pic/red.png';
 var pbombr = new Image();
-pbombr.src = 'src/pic/neon ball/pr1.png';
+pbombr.src = 'src/pic/bmbr.png';
 var pbomb = new Image();
-pbomb.src = 'src/pic/neon ball/gr.png';
+pbomb.src = 'src/pic/bmbg.png';
 var pclock = new Image();
-pclock.src = 'src/pic/ener.png';
+pclock.src = 'src/pic/yellow.png';
 var pshield = new Image();
-pshield.src = 'src/pic/shield.png';
+pshield.src = 'src/pic/blue2.png';
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'D') {
@@ -152,11 +154,9 @@ pshield.src = 'src/pic/shield.png';
 
 
         function drawFood(){
-            ctx.shadowColor = "red";
+            ctx.shadowColor = "#FFF60C";
             ctx.shadowBlur = 10;
-            ctx.fillStyle = "white"; //สร้างอาหาร
-            ctx.fillRect(food.x, food.y, size, size);
-            ctx.strokeRect(food.x, food.y, size, size);
+            ctx.drawImage(pfood,food.x,food.y,size,size);
         }
         let newx = snake[0].x; // ให้พิกัดใหม่มีค่าเท่ากับหัวงู
         let newy = snake[0].y;
