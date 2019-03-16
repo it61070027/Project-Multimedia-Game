@@ -266,6 +266,8 @@ pshield.src = 'src/pic/shield.png';
             shield = this.space[Math.floor(Math.random() * this.space.length)];
             var chk_ShieldX_born = 1;
             var chk_ShieldY_born = 1;
+            dx = Math.abs(dx);
+            dy = Math.abs(dy);
         }
         //เช็คว่ากิน shield ได้ไหม
         if((shield.x >= snake[0].x-12.5 && shield.x <= snake[0].x+12.5) && (shield.y >= snake[0].y-12.5 && shield.y <= snake[0].y+12.5)){
