@@ -59,7 +59,7 @@ h2{
     background-image: url(src/pic/snake_grey.gif);
     background-repeat: no-repeat;
     background-size: contain;
-    border-color: rgb(234, 76, 255);
+    border-color: rgb(253, 253, 253);
     border-style: solid;
     border-width: 7px;
     transition: 1s;
