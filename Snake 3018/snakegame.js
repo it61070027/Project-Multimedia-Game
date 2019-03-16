@@ -58,9 +58,6 @@ var pclock = new Image();
 pclock.src = 'src/pic/energyball.png';
 var pshield = new Image();
 pshield.src = 'src/pic/shield.png';
-var x = document.getElementById("bgm");
-x.autoplay = true;
-x.load();
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'D') {
@@ -80,6 +77,7 @@ x.load();
             updateTime();
         }
     }
+    sound('bgm');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
         snake.push({
