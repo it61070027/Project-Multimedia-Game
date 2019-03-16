@@ -60,7 +60,7 @@ h2{
     background-size: contain;
     border-color: aliceblue;
     border-style: dotted;
-    border-width: 5px;
+    border-width: 10px;
     transition: 1s;
     animation-name: ani;
     animation-duration: 1.5s;
