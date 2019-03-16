@@ -202,26 +202,26 @@ pshield.src = 'src/pic/shield.png';
             y:newy
         })
         }
-        var r = "hsl("+(51-timebomb*10)+",100%, 50%)"
+        var r = "hsl("+(120-(time*20))+",100%, 50%)"
         function drawBomb(){ //ฟังชั้นวาดระเบิด
             if(timebomb >= 4){
                 ctx.shadowColor = r;
-                ctx.shadowBlur = (timebomb*18);
+                ctx.shadowBlur = (timebomb*20);
                 ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 3){
                 ctx.shadowColor = r;
-                ctx.shadowBlur = (timebomb*18);
+                ctx.shadowBlur = (timebomb*20);
                 ctx.drawImage(pbombr,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 2){
                 ctx.shadowColor = r;
-                ctx.shadowBlur = (timebomb*18);
+                ctx.shadowBlur = (timebomb*20);
                 ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 1){
                 ctx.shadowColor = r;
-                ctx.shadowBlur = (timebomb*18);
+                ctx.shadowBlur = (timebomb*20);
                 ctx.drawImage(pbombr,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 0){
