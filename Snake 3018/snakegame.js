@@ -462,5 +462,7 @@ pshield.src = 'src/pic/shield.png';
         document.getElementById('endGame').style.display = 'none';  //ซ่อนหน้า endGame
     }
     function sound(id){ //ฟังก์ชันใส่เสียง
-        document.getElementById(id).play();
+        var song = document.getElementById(id);
+        song.play();
+        song.volume = 0.1;
     }
