@@ -52,14 +52,10 @@ var blueCount = 5;
 var blink = 0;
 var pbombr = new Image();
 pbombr.src = 'src/pic/neon ball/pr1.png';
-var pbomb3 = new Image();
-pbomb3.src = 'src/pic/neon ball/gr.png';
-var pbomb2 = new Image();
-pbomb2.src = 'src/pic/neon ball/gr.png';
-var pbomb1 = new Image();
-pbomb1.src = 'src/pic/neon ball/gr.png';
+var pbomb = new Image();
+pbomb.src = 'src/pic/neon ball/gr.png';
 var pclock = new Image();
-pclock.src = 'src/pic/time.png';
+pclock.src = 'src/pic/ener.png';
 var pshield = new Image();
 pshield.src = 'src/pic/shield.png';
     window.onkeyup = function(event) {
@@ -210,7 +206,7 @@ pshield.src = 'src/pic/shield.png';
             if(timebomb >= 4){
                 ctx.shadowColor = "#FFF60C";
                 ctx.shadowBlur = 10;
-                ctx.drawImage(pbomb1,bomb.x,bomb.y,size,size);
+                ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 3){
                 ctx.shadowColor = "#FFF60C";
@@ -220,7 +216,7 @@ pshield.src = 'src/pic/shield.png';
             else if(timebomb >= 2){
                 ctx.shadowColor = "#FFF60C";
                 ctx.shadowBlur = 10;
-                ctx.drawImage(pbomb2,bomb.x,bomb.y,size,size);
+                ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 1){
                 ctx.shadowColor = "#FFF60C";
@@ -230,7 +226,7 @@ pshield.src = 'src/pic/shield.png';
             else if(timebomb >= 0){
                 ctx.shadowColor = "#FFF60C";
                 ctx.shadowBlur = 10;
-                ctx.drawImage(pbomb3,bomb.x,bomb.y,size,size);
+                ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
             // ctx.shadowColor = "purple"; //สีshawdow
             // ctx.shadowBlur = 10; //ขนาดshadow
