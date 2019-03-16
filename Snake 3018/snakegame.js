@@ -1,5 +1,7 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+//"#0b5c9c";
+//"#00ffd880";
 var color_p = ["hsl(0, 100%, 47%)","hsl(24, 100%, 50%)","hsl(54, 100%, 50%)","hsl(73, 91%, 55%)","hsl(180, 100%, 47%)","hsl(240, 100%, 40%)","hsl(288, 100%, 50%)"]
 var color_p2 = ["hsl(0, 75%, 47%)","hsl(24, 75%, 50%)","hsl(54, 75%, 50%)","hsl(73, 70%, 55%)","hsl(180, 75%, 47%)","hsl(240, 75%, 40%)","hsl(288, 75%, 50%)"]
 var count = 0;
