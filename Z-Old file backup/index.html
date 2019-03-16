@@ -22,9 +22,22 @@
         <audio id="gameover">
             <source src="src/sound/game_over.mp3" type="audio/ogg">
         </audio>
+        <audio id="cdtime">
+            <source src="src/sound/Warning2.mp3" type="audio/ogg">
+        </audio>
+        <audio id="blink">
+            <source src="src/sound/time.mp3" type="audio/ogg">
+        </audio>
+        <audio id="pop">
+            <source src="src/sound/pop.mp3" type="audio/ogg">
+        </audio>
         <audio id="bgm" autoplay loop>
             <source src="src/sound/bgm.mp3" type="audio/ogg">
         </audio>
+        <audio id="blue" preload="auto">
+            <source src="src/sound/blue.mp3" type="audio/ogg">
+        </audio>
+
     </head>
     <body>
         <!-- Start Screen -->
@@ -34,10 +47,11 @@
         <!-- Game Screen -->
         <div id="playGame">
             <h2>score: <span id="theScore">0</span></h2>
-            <h2>Time Left: <span id="theTime">20</span> </h2>
-            <canvas id="myCanvas" height="500";
-            width="500";>
+            <h2>Time Left: <span id="theTime">30</span> </h2>
+            <canvas id="myCanvas" height="625";
+            width="625";>
             </canvas>
+            <img id="myBomb" src="src/pic/bomb.gif">
         </div>
 
         <!-- End Screen -->

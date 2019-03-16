@@ -2,7 +2,7 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var count = 0;
 var shield_fly = 'off';
-var clockcount = 0;
+var clockcount = 1;
 var bombkill = "off";
 var chktime = "off"; //กำหนดตัวแปรเช็คการเริ่มกดปุ่มตัวแรก
 var casebomb = "on";//ตั้งค่าจุดระเบิด
@@ -11,6 +11,10 @@ var timebomb = 0;//เซตเวลาระเบิด
 var key = { //กำหนดตค่าปุ่มเริ่มต้น
     move:undefined
 }
+var randomtimeborn = [5.5, 6, 7];
+var randomtimestill = [8.5, 9.5];
+var rs = randomtimestill[Math.floor(Math.random() * randomtimestill.length)];
+var rb = randomtimeborn[Math.floor(Math.random() * randomtimeborn.length)];
 var countchage = 0;
 var size = 25; //ขนาดบล็อคตัวงู
 var key_p = undefined;
@@ -45,21 +49,17 @@ var dy = 12.5;
 var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
 var blink = 0;
-var pbombr = new Image();
-pbombr.src = 'src/pic/pr.png';
 var pbomb3 = new Image();
-pbomb3.src = 'src/pic/pp.png';
+pbomb3.src = 'src/pic/b3.png';
 var pbomb2 = new Image();
-pbomb2.src = 'src/pic/pp.png';
+pbomb2.src = 'src/pic/b2.png';
 var pbomb1 = new Image();
-pbomb1.src = 'src/pic/pp.png';
+pbomb1.src = 'src/pic/b1.png';
 var pclock = new Image();
-pclock.src = 'src/pic/time.png';
-var pshield = new Image();
-pshield.src = 'src/pic/shield.png';
+pclock.src = 'src/pic/clock.gif';
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
-        if ( key == 'W' || key == 'A' || key == 'D') {
+        if ( key == 'W' || key == 'A' || key == 'S' || key == 'D') {
             document.getElementById("startGame").style.display="none";
             chktime = "on";
         }
@@ -199,19 +199,13 @@ pshield.src = 'src/pic/shield.png';
         })
         }
         function drawBomb(){ //ฟังชั้นวาดระเบิด
-            if(timebomb >= 4){
+            if(timebomb >= 3){
                 ctx.drawImage(pbomb1,bomb.x,bomb.y,size,size);
-            }
-            else if(timebomb >= 3){
-                ctx.drawImage(pbombr,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 2){
                 ctx.drawImage(pbomb2,bomb.x,bomb.y,size,size);
             }
             else if(timebomb >= 1){
-                ctx.drawImage(pbombr,bomb.x,bomb.y,size,size);
-            }
-            else if(timebomb >= 0){
                 ctx.drawImage(pbomb3,bomb.x,bomb.y,size,size);
             }
             // ctx.shadowColor = "purple"; //สีshawdow
@@ -242,9 +236,8 @@ pshield.src = 'src/pic/shield.png';
             ctx.shadowColor = "aqua";
             ctx.shadowBlur = 10;
             ctx.fillStyle = "aqua";
-            ctx.drawImage(pshield,shield.x,shield.y,size,size);
-            //ctx.fillRect(shield.x, shield.y, size, size); //สร้างรูป
-            //ctx.strokeRect(shield.x, shield.y, size, size); //สร้างขอบ
+            ctx.fillRect(shield.x, shield.y, size, size); //สร้างรูป
+            ctx.strokeRect(shield.x, shield.y, size, size); //สร้างขอบ
                 if(shield.x  >= canvas.width-size || shield.x  <= 0){
                     if (!(chk_ShieldX_born && shield.x == 0)) dx = -dx; //แก้บัคxเกิดตำแหน่ง 0 แล้วขยับไม่ได้
                     chk_ShieldX_born = 0;
@@ -275,7 +268,9 @@ pshield.src = 'src/pic/shield.png';
             chk_ShieldY_born = 1;
             document.getElementById('bgm').pause();
         }
-        count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
+        if (chktime == "on"){
+            count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
+        }
         if (count%6 == 0){ // ไปที่ฟังชั้นspawn_b เพื่อรีเวลาใหม่
             if (casebomb == "on" && chktime == "on"){
                 spaceNoSnake();
@@ -318,26 +313,32 @@ pshield.src = 'src/pic/shield.png';
             }
         }
 
+
         if (chktime == "on"){
-            clockcount += 1;
-            console.log(clockcount);}/* ยังไม่เสร็จ
-        if (clockcount == 20){ // นาฬิกาหายไปเมื่อเวลากำหนด
-            clock.x = undefined;
-            clock.y = undefined;
-            chkclock = "on";
-            clockcount = 0;
-        }*/
+            clockcount = (clockcount*10 + 0.1*10)/10;
+        }
         if (snake[0].x == clock.x && snake[0].y == clock.y){ //กินนาฬิกาแล้วหายไปเวลาเพิ่มขึ้น
-            time += 6;
+            time += 10;
             updateTime();
             clock.x = undefined;
             clock.y = undefined;
             chkclock = "on";
-            clockcount = 0;
+            clockcount = 1;
+            rs = randomtimestill[Math.floor(Math.random() * randomtimestill.length)]
+            rb = randomtimeborn[Math.floor(Math.random() * randomtimeborn.length)]
             sound("blink");
         }
-        if (clockcount % 6 == 0){ // ทำให้เกิดนาฬิกา
-            if (chkclock == "on" && chktime == "on" && clockcount > 19){
+        if (clockcount % rs == 0){
+            clock.x = undefined;
+            clock.y = undefined;
+            chkclock = "on";
+            clockcount = 1;
+            rs = randomtimestill[Math.floor(Math.random() * randomtimestill.length)]
+            rb = randomtimeborn[Math.floor(Math.random() * randomtimeborn.length)]
+        }
+
+        if (clockcount % rb == 0){ // ทำให้เกิดนาฬิกา
+            if (chkclock == "on" && chktime == "on"){
                 spaceNoSnake();
                 clock = this.space[Math.floor(Math.random() * this.space.length)];
                 chkclock = "off";;
@@ -383,10 +384,8 @@ pshield.src = 'src/pic/shield.png';
             }
             // ถ้าหมดเวลา
             else{
-                console.log('sfdsdfs');
                 youDied.innerText = "Time Out!!";
                 died();
-                console.log("END");
             }
         },1000)
 }
@@ -407,7 +406,7 @@ pshield.src = 'src/pic/shield.png';
     function died(){    //ฟังก์ชันตาย
         sound("gameover");  //เสียง Gameovers
         chktime = "off";
-        console.log("DIED!!!");
+
         document.getElementById('endGame').style.display = 'block'; //แสดงหน้า endGame ที่ซ่อนไว้
         total.innerText = high;     //คะแนน HighScore
         final.innerText = long-1;   //คะแนน FinalScore
