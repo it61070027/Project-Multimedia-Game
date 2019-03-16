@@ -1,6 +1,6 @@
 # Project-Multimedia-Game-
 
-## Progressing  [![pro](http://progressed.io/bar/70)](#pro)
+## Progressing  [![pro](http://progressed.io/bar/85)](#pro)
 ### InGame
 - [x] Model snake
 - [x] food
@@ -8,9 +8,11 @@
 - [x] Clock
 - [x] Shield<br><br>
 ### Other
-- [ ] Start Menu
-- [ ] How to play
-- [ ] Game Interface
-- [x] End Screen
-
+- [x] Start Menu
+- [x] How to play
+- [x] Game Interface
+- [x] End Screen<br><br>
+### Optional
+- [ ] Leaderboard
+- [ ] Maximum Energy
 
