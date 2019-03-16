@@ -478,4 +478,5 @@ var ant2 = undefined;
         if(id == "bgm" || id == "blue"){
             song.volume = 0.3;
         }
+        else song.volume = 0.5;
     }
