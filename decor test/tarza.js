@@ -336,7 +336,7 @@ pshield.src = 'src/pic/shield.png';
             clockcount = 0;
             sound("blink");
         }
-        if (clockcount % 4 == 0){ // ทำให้เกิดนาฬิกา
+        if (clockcount % 6 == 0){ // ทำให้เกิดนาฬิกา
             if (chkclock == "on" && chktime == "on" && clockcount > 19){
                 spaceNoSnake();
                 clock = this.space[Math.floor(Math.random() * this.space.length)];
