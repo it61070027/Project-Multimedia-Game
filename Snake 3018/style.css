@@ -3,7 +3,9 @@ html{
     overflow: hidden;
 }
 body{
-    background-color: #000000;
+    background-image: url(src/pic/bg1.gif);
+    background-repeat: none;
+    background-size: cover;
 }
 @font-face {
     font-family: spaceage;

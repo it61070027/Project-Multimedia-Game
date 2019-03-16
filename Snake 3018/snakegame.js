@@ -1,7 +1,5 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-//"#0b5c9c";
-//"#00ffd880";
 var color_p = ["hsl(0, 100%, 47%)","hsl(24, 100%, 50%)","hsl(54, 100%, 50%)","hsl(73, 91%, 55%)","hsl(180, 100%, 47%)","hsl(240, 100%, 40%)","hsl(288, 100%, 50%)"]
 var color_p2 = ["hsl(0, 75%, 47%)","hsl(24, 75%, 50%)","hsl(54, 75%, 50%)","hsl(73, 70%, 55%)","hsl(180, 75%, 47%)","hsl(240, 75%, 40%)","hsl(288, 75%, 50%)"]
 var count = 0;
@@ -149,6 +147,7 @@ var ant2 = undefined;
                     color1 = "#e0f1ff";
                     color2 = color_p2[numc];
                     shadow1 = color_p[numc];
+                    document.querySelector("body").style.backgroundImage = 'url("src/pic/climax.gif")';
                     sc = 20;
             }
             if (status == "cooldown"){
@@ -160,6 +159,7 @@ var ant2 = undefined;
                         //blink++;
                     }
                     else{
+
                         color1 = "#BA01FF";
                         color2 = "#ef648f";
                         //blink++;
@@ -252,11 +252,6 @@ var ant2 = undefined;
                 ctx.shadowBlur = (timebomb*18);
                 ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
-            // ctx.shadowColor = "purple"; //สีshawdow
-            // ctx.shadowBlur = 10; //ขนาดshadow
-            // ctx.fillStyle = "purple"; //สี
-            // ctx.fillRect(bomb.x, bomb.y, size, size); //สร้างรูป
-            // ctx.strokeRect(bomb.x, bomb.y, size, size); //สร้างขอบ
         }
         console.log(timebomb);
         function drawBoom(){//วาดรัศมีระเบิด
@@ -267,11 +262,6 @@ var ant2 = undefined;
             ctx.fillRect(boom.x, 0, size, canvas.height);
         }
         function drawClock(){ //ฟังชั้นวาดระเบิด
-            // ctx.shadowColor = "orange"; //สีshawdow
-            // ctx.shadowBlur = 10; //ขนาดshadow
-            // ctx.fillStyle = "orange"; //สี
-            // ctx.fillRect(clock.x, clock.y, size, size); //สร้างรูป
-            // ctx.strokeRect(clock.x, clock.y, size, size); //สร้างขอบ
             ctx.shadowColor = "#F20505"; //สีshadow
             ctx.shadowBlur = 10; //ขนาดshadow
             ctx.drawImage(pclock,clock.x,clock.y,size,size);
@@ -281,8 +271,6 @@ var ant2 = undefined;
             ctx.shadowBlur = 10;
             ctx.fillStyle = "aqua";
             ctx.drawImage(pshield,shield.x,shield.y,size,size);
-            //ctx.fillRect(shield.x, shield.y, size, size); //สร้างรูป
-            //ctx.strokeRect(shield.x, shield.y, size, size); //สร้างขอบ
                 if(shield.x  >= canvas.width-size || shield.x  <= 0){
                     if (!(chk_ShieldX_born && shield.x == 0)) dx = -dx; //แก้บัคxเกิดตำแหน่ง 0 แล้วขยับไม่ได้
                     chk_ShieldX_born = 0;
@@ -294,7 +282,7 @@ var ant2 = undefined;
                 shield.x += dx;
                 shield.y += dy;
         }
-        if(shield_p == 3){  //สุ่มตำแหน่ง Shield (ขั้นทดลอง)
+        if(shield_p == 3){  //สุ่มตำแหน่ง Shield
             shield_p = 0;
             shield_fly = 'on';
             shield = this.space[Math.floor(Math.random() * this.space.length)];
@@ -407,6 +395,7 @@ var ant2 = undefined;
             if (countchage == 3){
                 document.getElementById('blue').pause();    //Pause เสียง Mode Blue
                 document.getElementById('bgm').play();    //Play BGM ต่อ
+                document.querySelector("body").style.backgroundImage = 'url("src/pic/bg1.gif")';
                 status = "normal";
                 countchage = 0;
             }
