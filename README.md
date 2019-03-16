@@ -1,6 +1,6 @@
 # Project-Multimedia-Game-
 
-## Progressing  [![pro](http://progressed.io/bar/70)](#pro)
+## Progressing  [![pro](http://progressed.io/bar/80)](#pro)
 ### InGame
 - [x] Model snake
 - [x] food
