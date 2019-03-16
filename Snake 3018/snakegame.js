@@ -151,6 +151,7 @@ var ant2 = undefined;
             }
             if (status == "cooldown"){
                     sound("cdtime");
+                    document.getElementById('blue').pause();    //Pause เสียง Mode Blue
                     if((0 <= countchage && countchage <= 0.4) || (0.8 <= countchage && countchage <= 1.2) || (1.6 <= countchage && countchage <= 2) || (2 <= countchage && countchage <= 2.4) || (2.8 <= countchage && countchage <= 3)){
                         color1 = "pink";
                         color2 = "#ef648f";
@@ -316,7 +317,7 @@ var ant2 = undefined;
             countshield = (countshield*10 + 0.1*10)/10;
         }
         if (countshield%16 == 0){
-            shield.x = undefined;  
+            shield.x = undefined;
             shield.y = undefined;
             shield_p = 0;
             shield_fly = 'off';
@@ -409,7 +410,7 @@ var ant2 = undefined;
             }
         }
 
-    
+
     drawClock();//เรียกฟังก์ชันวาดนาฬิกา
     drawFood();//เรียกฟังชั้นวาดอาหาร
     drawBomb();//เรียกฟังชั้นวาดระเบิด
@@ -487,4 +488,3 @@ var ant2 = undefined;
             song.volume = 0.3;
         }
     }
-    
