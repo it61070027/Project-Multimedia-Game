@@ -84,7 +84,6 @@ pshield.src = 'src/pic/shield.png';
             y:(canvas.height/2-12.5)+(i*size)
         })
     }
-    sound('bgm');
     function spaceNoSnake(){  //พื้นที่ที่ไม่มีงู
         this.space = [] //array เก็บ พื้นที่
         for (var i = 0; i <= canvas.width-size; i += size){ // แกน x
