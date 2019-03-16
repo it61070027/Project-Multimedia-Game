@@ -296,7 +296,7 @@ pshield.src = 'src/pic/shield.png';
             countshield = (countshield*10 + 0.1*10)/10;
         }
         if (countshield%16 == 0){
-            shield.x = undefined;   //กินเสร็จแล้วไอเทมหาย
+            shield.x = undefined;  
             shield.y = undefined;
             shield_p = 0;
             shield_fly = 'off';
