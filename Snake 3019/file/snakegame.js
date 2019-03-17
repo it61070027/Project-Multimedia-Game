@@ -469,7 +469,7 @@ var ant2 = undefined;
             // ถ้าหมดเวลา
             else{
                 youDied.innerText = "Energy Out!!";
-                document.getElementById('youDied').style.fontSize = '135px';
+                document.getElementById('youDied').style.fontSize = '120px';
                 died();
             }
         },1000)
