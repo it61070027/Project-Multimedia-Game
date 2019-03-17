@@ -113,10 +113,10 @@ button{
     margin: 20px 2px 1px;
     font-size: 30px;
     text-align: center;
-    border: 7px solid rgba(255, 116, 236, 0.897);
-    color: rgb(247, 97, 234);
+    border: 7px solid rgba(130, 116, 255, 0.897);
+    color: rgb(97, 162, 247);
     border-radius: 50px;
-    box-shadow: 0px 0px 30px rgb(245, 150, 202);
+    box-shadow: 0px 0px 30px rgb(194, 150, 245);
     font-family: 'Orbitron', sans-serif;
 }
 

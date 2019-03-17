@@ -199,6 +199,7 @@ var ant2 = undefined;
             for (let i = 0; i < snake.length; i++){ //เช็คว่างูชนรึยัง
                 if((newx == snake[i].x && newy == snake[i].y)|| (newx == bomb.x && newy == bomb.y)){
                     //เช็คว่าอยู่ mode อมตะหรือไม่
+                    sound("hit");
                     if(status == "normal"){
                         ctx.fillStyle = "#ff7b01";
                         ctx.shadowColor = "#ffb701";
