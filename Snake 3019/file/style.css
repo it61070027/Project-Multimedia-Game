@@ -113,18 +113,19 @@ button{
     margin: 20px 2px 1px;
     font-size: 30px;
     text-align: center;
-    border: 7px solid rgba(130, 116, 255, 0.897);
-    color: rgb(97, 162, 247);
+    border: 7px solid rgba(255, 115, 0, 0.897);
+    color: rgb(255, 145, 0);
     border-radius: 50px;
-    box-shadow: 0px 0px 30px rgb(194, 150, 245);
+    text-shadow: 0 0 10px rgb(rgb(255, 166, 0)), 0 0 20px rgb(rgb(255, 115, 0)), 0 0 30px rgb(rgb(255, 230, 0)), 0 0 40px rgb(rgb(255, 230, 0));
+    box-shadow: 0 0 10px rgb(255, 153, 1), 0 0 20px rgba(255, 188, 111, 0.877), 0 0 30px rgba(255, 188, 111, 0.877);
     font-family: 'Orbitron', sans-serif;
 }
 
 button:hover{
-    border: 7px solid rgba(174, 0, 255, 0.438);
-    box-shadow: 0px 0px 50px rgba(45, 248, 255, 0.753);
+    border: 7px solid rgba(255, 115, 0, 0.719);
+    box-shadow: 0 0 10px rgb(248, 62, 62), 0 0 20px rgba(255, 11, 3, 0.452), 0 0 30px rgba(255, 11, 3, 0.973), 0 0 40px rgba(255, 3, 179, 0.973);
     font-family: 'Orbitron', sans-serif;
-    color: rgb(167, 72, 255);
+    color: rgb(255, 72, 72);
     cursor: url(http://ani.cursors-4u.net/cursors/cur-12/cur1136.ani), url(http://ani.cursors-4u.net/cursors/images12/cur1136.png), auto;
     touch-action: none;
 }
