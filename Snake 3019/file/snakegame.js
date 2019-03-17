@@ -457,7 +457,6 @@ var ant2 = undefined;
             }
         }
         else if(energy <= 10){
-            sound('beep');
             countcolor = (countcolor*10 + 0.1*10) /10;
             console.log(countcolor);
             if((countcolor*10)%3 == 0){
@@ -552,9 +551,7 @@ var ant2 = undefined;
     function sound(id){ //ฟังก์ชันใส่เสียง
         var song = document.getElementById(id);
         song.play();
-        song.volume = 0.3;
-        // if(id == "bgm" || id == "blue"){
-        //     song.volume = 0.3;
-        // }
-        // else song.volume = 0.5;
+        if(id == "bgm" || id == "blue") song.volume = 0.2;
+        else if(id == "beep") song.volume = 0.1;
+        else song.volume = 0.5;
     }
