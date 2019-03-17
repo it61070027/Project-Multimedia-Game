@@ -8,10 +8,10 @@ body{
     background-size: cover;
 }
 @font-face {
-    font-family: spaceage;
-    src: local(spaceage), url("../src/fonts/spaceage.otf");
-    /*src: url(../src/fonts/spaceage.ttf);*/
-  }
+    font-family: 'Space age';
+    src: url('../src/fonts/spaceage.ttf'),
+}
+    
 #myCanvas{
     border: 2px solid #1FD01F;
     box-shadow: 0px 0px 20px #1FEA1F;
@@ -29,7 +29,7 @@ body{
 h2{
     color: white;
     margin-left: 10px;
-    font-family: spaceage;
+    font-family: 'Space age', 'Monoton', Tahoma, Sans-Serif;
     font-size: 30px;
 }
 #www{
