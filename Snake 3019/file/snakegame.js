@@ -357,15 +357,14 @@ var ant2 = undefined;
                 if (bomb.x != undefined){
                     bombkill = "on";
                     sound("fire")   //เสียงระเบิด
-                    //if (status != "mode_blue"){
-                    //myCanvas.style.boxShadow = "0px 0px 120px #fbf717"};
+                    if (status != "mode_blue"){
+                    myCanvas.style.boxShadow = "0 0 20px rgb(28, 218, 28), 0 0 40px rgb(26, 216, 26),0px 0px 80px #1FEA1F,0px 0px 160px #1FEA1F"};
                 }
                 else {
                     bombkill = "off";
-                    //if (status != "mode_blue"){
-                    //myCanvas.style.boxShadow = "0px 0px 20px #1FEA1F";}
+                    if (status != "mode_blue"){
+                    myCanvas.style.boxShadow = "0 0 5px rgb(28, 218, 28), 0 0 10px rgb(26, 216, 26),0px 0px 20px #1FEA1F,0px 0px 30px #1FEA1F";}
                 }
-
             }
             timebomb = (timebomb*10 + 0.1*10) /10;  //เวลาระเบิด
         }
