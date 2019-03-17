@@ -13,8 +13,8 @@ var timebomb = 0;//เซตเวลาระเบิด
 var key = { //กำหนดตค่าปุ่มเริ่มต้น
     move:undefined
 }
-var randomtimeborn = [5.5, 6, 7];
-var randomtimestill = [9, 10];
+var randomtimeborn = [5, 6, 7];
+var randomtimestill = [9, 11,12];
 var rs = randomtimestill[Math.floor(Math.random() * randomtimestill.length)];
 var rb = randomtimeborn[Math.floor(Math.random() * randomtimeborn.length)];
 var countchage = 0;
@@ -173,11 +173,18 @@ var ant2 = undefined;
                 ctx.strokeRect(snake[i].x, snake[i].y, size, size);
             }
 
-
+        var colorfood = "white";
+        var shadowfood = shadow1;
+        var colorsizefood = 10;
+        if (status == "mode_blue"){
+            colorfood = color2;
+            shadowfood = shadow1;
+            colorsizefood = 30;
+        }
         function drawFood(){
-            ctx.shadowColor = "red";
-            ctx.shadowBlur = 10;
-            ctx.fillStyle = "white"; //สร้างอาหาร
+            ctx.shadowColor = shadowfood;
+            ctx.shadowBlur = colorsizefood;
+            ctx.fillStyle = colorfood; //สร้างอาหาร
             ctx.fillRect(food.x, food.y, size, size);
             ctx.strokeRect(food.x, food.y, size, size);
         }
