@@ -135,7 +135,8 @@ var ant2 = undefined;
         else if (key.move == "A" && key_p != "D") key_p = "A"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         else if (key.move == "D" && key_p != "A") key_p = "D"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        var color1 = "#BF0404";
+        var ct = Math.floor((energy >= 11?0:(10-energy)*6));
+        var color1 = "hsl(0, 96%, "+(40+ct)+"%)";
         var color2 = "#ef648f";
         var shadow1 = "#F20505";
         var sc = 15;
