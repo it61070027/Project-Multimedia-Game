@@ -6,6 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="chrome=1">
         <link rel="stylesheet" type="text/css" href="../file/style.css">
+        <FilesMatch "\.(ttf|otf|eot)$">
+                <IfModule mod_headers.c>
+                </IfModule>
+        </FilesMatch>
         <!-- This is for font -->
         <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
