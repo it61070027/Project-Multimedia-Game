@@ -16,11 +16,11 @@ body{
     box-shadow: 0px 0px 20px #1FEA1F;
     background-color: #1F1F1F;
     position: absolute;
-    top: 0;
+    top: 3%;
     left: 0;
-    bottom: 0;
     right: 0;
     margin: auto;
+    display: block;
 }
 #myBomb{
     height: 0;
@@ -30,6 +30,14 @@ h2{
     margin-left: 10px;
     font-family: spaceage;
     font-size: 30px;
+}
+#www{
+    position: absolute;
+    display:block;
+    margin: auto;
+    bottom: 5%;
+    left: 31%;
+    font-size: 50px;
 }
 #pressStart{
     color: white;
