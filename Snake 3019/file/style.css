@@ -1,11 +1,13 @@
 html{
     cursor: url(http://cur.cursors-4u.net/cursors/cur-2/cur117.cur), auto;
     overflow: hidden;
+
 }
 body{
     background-image: url(../src/pic/bg1.gif);
     background-repeat: no-repeat;
     background-size: cover;
+    resize: both;
 }
 @font-face {
     font-family: spaceage;

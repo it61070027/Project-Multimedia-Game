@@ -447,6 +447,7 @@ var ant2 = undefined;
             }
         }
         if(energy <= 5){
+            sound('beep');
             countcolor = (countcolor*10 + 0.1*10) /10;
             console.log("5 : "+countcolor);
             if((countcolor*10)%2 == 0){
@@ -456,6 +457,7 @@ var ant2 = undefined;
             }
         }
         else if(energy <= 10){
+            sound('beep');
             countcolor = (countcolor*10 + 0.1*10) /10;
             console.log(countcolor);
             if((countcolor*10)%3 == 0){
