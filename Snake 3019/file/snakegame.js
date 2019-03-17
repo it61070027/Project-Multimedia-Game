@@ -445,7 +445,28 @@ var ant2 = undefined;
                 countchage = 0;
             }
         }
-
+        if(energy <= 5){
+            countcolor = (countcolor*10 + 0.1*10) /10;
+            console.log("5 : "+countcolor);
+            if((countcolor*10)%2 == 0){
+                www.style.textShadow = "0 0 10px #fff";}
+            else{
+                www.style.textShadow = "0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FF1177, 0 0 30px #FF1177, 0 0 50px #FF1177, 0 0 60px #FF1177";
+            }
+        }
+        else if(energy <= 10){
+            countcolor = (countcolor*10 + 0.1*10) /10;
+            console.log(countcolor);
+            if((countcolor*10)%3 == 0){
+                www.style.textShadow = "0 0 10px #fff";}
+            else{
+                www.style.textShadow = "0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FF1177, 0 0 30px #FF1177, 0 0 50px #FF1177, 0 0 60px #FF1177";
+            }
+        }
+        else{
+            countcolor = 0;
+            www.style.textShadow = "0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FF1177, 0 0 30px #FF1177, 0 0 50px #FF1177, 0 0 60px #FF1177";
+        }
 
     drawClock();//เรียกฟังก์ชันวาดนาฬิกา
     drawFood();//เรียกฟังชั้นวาดอาหาร
