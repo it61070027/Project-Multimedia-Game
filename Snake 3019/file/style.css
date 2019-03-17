@@ -4,7 +4,7 @@ html{
 }
 body{
     background-image: url(../src/pic/bg1.gif);
-    background-repeat: none;
+    background-repeat: no-repeat;
     background-size: cover;
 }
 @font-face {

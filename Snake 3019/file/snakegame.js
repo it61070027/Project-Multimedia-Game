@@ -90,7 +90,7 @@ var ant2 = undefined;
             localStorage.clear();
         }
     }
-    sound('bgm');
+    sound("bgm");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
         snake.push({
@@ -528,8 +528,9 @@ var ant2 = undefined;
     function sound(id){ //ฟังก์ชันใส่เสียง
         var song = document.getElementById(id);
         song.play();
-        if(id == "bgm" || id == "blue"){
-            song.volume = 0.3;
-        }
-        else song.volume = 0.5;
+        song.volume = 0.3;
+        // if(id == "bgm" || id == "blue"){
+        //     song.volume = 0.3;
+        // }
+        // else song.volume = 0.5;
     }
