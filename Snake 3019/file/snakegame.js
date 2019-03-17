@@ -510,7 +510,6 @@ var ant2 = undefined;
         document.getElementById('blue').pause();    //Pause เสียง Mode Blue
         clearInterval(game); //หยุดการทำงาน
         clearInterval(cd); //หยุดเวลา
-        hallOfFame();
     }
     function start(){
         window.location.reload();   //รีเฟรซหน้า (เหมือน F5)
@@ -523,19 +522,4 @@ var ant2 = undefined;
             song.volume = 0.3;
         }
         else song.volume = 0.5;
-    }
-    function hallOfFame(){
-        if (localStorage.length){
-            var obj_s = JSON.parse(localStorage.obj);
-        }
-        else{
-            var obj_s = [];
-        }
-        var name = prompt("Enter Your Name: ");
-        hall = {};
-        hall[name] = high;
-        obj_s.push(hall);
-        localStorage.obj=JSON.stringify(obj_s);
-        var obj_s=JSON.parse(localStorage.obj);
-        console.log(obj_s);
     }
