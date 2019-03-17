@@ -33,11 +33,11 @@ h2{
     font-size: 30px;
 }
 #www{
-    position: absolute;
-    display:block;
-    margin: auto;
-    bottom: 5%;
-    left: 31%;
+    right: 34%;
+    top: 80%;
+    position: fixed;
+    display: block;
+    text-align: center;
     font-size: 50px;
 }
 #pressStart{
