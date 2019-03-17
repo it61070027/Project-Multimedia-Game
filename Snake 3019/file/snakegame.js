@@ -447,20 +447,20 @@ var ant2 = undefined;
             }
         }
         if(energy <= 5){
-            sound("beep1");
             countcolor = (countcolor*10 + 0.1*10) /10;
             console.log("5 : "+countcolor);
             if((countcolor*10)%2 == 0){
+                sound("beep");
                 www.style.textShadow = "0 0 10px #fff";}
             else{
                 www.style.textShadow = "0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FF1177, 0 0 30px #FF1177, 0 0 50px #FF1177, 0 0 60px #FF1177";
             }
         }
         else if(energy <= 10){
-            sound("beep");
             countcolor = (countcolor*10 + 0.1*10) /10;
             console.log(countcolor);
             if((countcolor*10)%3 == 0){
+                sound("beep");
                 www.style.textShadow = "0 0 10px #fff";}
             else{
                 www.style.textShadow = "0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FF1177, 0 0 30px #FF1177, 0 0 50px #FF1177, 0 0 60px #FF1177";
@@ -552,7 +552,6 @@ var ant2 = undefined;
     function sound(id){ //ฟังก์ชันใส่เสียง
         var song = document.getElementById(id);
         song.play();
-        if(id == "bgm" || id == "blue") song.volume = 0.2;
-        else if(id == "beep") song.volume = 0.1;
+        if(id == "bgm" || id == "blue" || id == "beep") song.volume = 0.2;
         else song.volume = 0.5;
     }
