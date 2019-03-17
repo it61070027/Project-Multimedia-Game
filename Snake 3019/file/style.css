@@ -103,6 +103,20 @@ h2{
 }
 button{
     position: relative;
+    bottom: 300px;
+    height: 70px;
+    width: 300px;
+    margin: 20px 2px 1px;
+    font-size: 30px;
+    text-align: center;
+    border: 7px solid rgb(253, 123, 195);
+    color: rgb(253, 123, 195);
+    border-radius: 50px;
+    box-shadow: 0px 0px 30px rgb(245, 150, 202);
+    font-family: 'Orbitron', sans-serif;
+}
+/* button{
+    position: relative;
     bottom: 270px;
     height: 50px;
     width: 500px;
@@ -114,10 +128,15 @@ button{
     color: rgb(255, 255, 255);
     font-size: 20px;
     text-shadow: 0px 5px rgba(80, 5, 255, 0.541);
-  }
+  } */
 button:hover{
-    background-color: rgb(89, 46, 206);
-    border-bottom: 6px solid aqua;
+    border: 7px solid rgb(147, 140, 243);
+    box-shadow: 0px 0px 30px rgb(167, 242, 255);
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0px 0px 30px rgb(167, 242, 255);
+    color: rgb(112, 208, 224);
+    cursor: url(http://ani.cursors-4u.net/cursors/cur-12/cur1136.ani), url(http://ani.cursors-4u.net/cursors/images12/cur1136.png), auto;
+    touch-action: none;
 }
 @keyframes ani {
     from {bottom:1000px;}
