@@ -23,7 +23,8 @@ var key_p = undefined;
 var snake = [{x:canvas.width/2-12.5, y:canvas.height/2-12.5}]; //สร้างarray snake เก็บค่าพิกัดงู ซึ่งตัวแรกให้อยู่กลางแมพ
 var long = 0; //ความยาวของตัวงู
 var high = 0; //score สุดท้าย
-var time = 30; //กำหนดเวลาของเกม
+var energy = 30; //กำหนดพลังงาน
+var max_energy = 30;
 var chkclock = "on"; // เช็คว่างูกินที่เพิ่มเวลาไปหรือยัง
 var bomb = {
     x:undefined,
@@ -48,6 +49,7 @@ var shield = {
 }
 var dx = 12.5;    //ความเร็วไอเทม
 var dy = 12.5;
+var cc = 1;
 var countshield = 1;
 var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
@@ -80,8 +82,12 @@ var ant2 = undefined;
             sound("blue");
         }
         else if (key == ']'){
-            time += 10;
-            updateTime();
+            energy += 10;
+            energy = (energy > max_energy?max_energy:energy);
+            updateEnergy();
+        }
+        else if (key == 'V'){
+            key_p = undefined;
         }
     }
     sound('bgm');
@@ -129,6 +135,8 @@ var ant2 = undefined;
                 ctx.fillStyle = "#42ff00";
                 ctx.fillRect(snake[0].x, snake[0].y, size, size);
                 ctx.strokeRect(snake[0].x, snake[0].y, size, size);
+                console.log('www');
+                cc = 0;
                 died();
             }
             else if(status == "mode_blue"){
@@ -222,6 +230,8 @@ var ant2 = undefined;
             if (status == 'normal' && shield_fly == 'off'){
                 shield_p++;}
             sound("bite")   //เสียงกิน
+            max_energy += 10;
+            updateMaxEnergy();
             food = this.space[Math.floor(Math.random() * this.space.length)];
             }
         else{
@@ -262,7 +272,6 @@ var ant2 = undefined;
                 ctx.drawImage(pbomb,bomb.x,bomb.y,size,size);
             }
         }
-        console.log(timebomb);
         function drawBoom(){//วาดรัศมีระเบิด
             ctx.shadowColor = "#FFF60C";
             ctx.shadowBlur = 20;
@@ -365,7 +374,15 @@ var ant2 = undefined;
             for (let i = 1; i < snake.length; i++){ //เช็คว่างูชนรึยัง
                 if(bomb.x == snake[i].x || bomb.y == snake[i].y){
                     if(status == "normal"){
-                        snake = snake.slice(0, i);
+                        if (cc){
+                        snake = snake.slice(0, i);}
+                        max_energy = (cc?(snake.length-1)*10:max_energy);
+                        if (max_energy == 0){
+                            updateEnergy();
+                            youDied.innerText = "Energy Out!!";
+                            died();
+                        }
+                        updateMaxEnergy();
                     }
                     else{
                         status = "cooldown";
@@ -379,8 +396,9 @@ var ant2 = undefined;
             clockcount = (clockcount*10 + 0.1*10)/10;
         }
         if (snake[0].x == clock.x && snake[0].y == clock.y){ //กินนาฬิกาแล้วหายไปเวลาเพิ่มขึ้น
-            time += 10;
-            updateTime();
+            energy += 10;
+            energy = (energy > max_energy?max_energy:energy);
+            updateEnergy();
             clock.x = undefined;
             clock.y = undefined;
             chkclock = "on";
@@ -438,25 +456,33 @@ var ant2 = undefined;
         cd = setInterval(
         function(){
             // ถ้ายังไม่หมดเวลา
-            if (time > 0) {
+            if (energy > 0) {
                 // ลดเวลา
                 if (chktime == "on"){ // BUG บางทีมันหน่วงตรงนับ 20
-                    time--;
+                    energy--;
                 // อัพเดทเวลา
-                updateTime();}
+                updateEnergy();}
             }
             // ถ้าหมดเวลา
             else{
-                console.log('sfdsdfs');
-                youDied.innerText = "Time Out!!";
+                youDied.innerText = "Energy Out!!";
                 died();
-                console.log("END");
             }
         },1000)
 }
-    function updateTime(){
+    function updateEnergy(){
         // แสดงเวลา
-        theTime.innerText = time;
+        energy = (energy > max_energy?max_energy:energy);
+        Energy.innerText = energy;
+
+        // ถ้าหมดเวลา ให้บอก
+        // if (time == 0) {
+        //     status.innerHTML = "Gmae Over!!! <a href='#!' onclick='ready()'>play again</a>";
+        // }
+    }
+    function updateMaxEnergy(){
+        // แสดงเวลา
+        maxEnergy.innerText = max_energy;
 
         // ถ้าหมดเวลา ให้บอก
         // if (time == 0) {
