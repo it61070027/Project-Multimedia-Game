@@ -82,7 +82,7 @@ var ant2 = undefined;
             sound("blue");
         }
         else if (key == ']'){
-            energy += 10;
+            energy -= 10;
             energy = (energy > max_energy?max_energy:energy);
             updateEnergy();
         }
@@ -135,11 +135,11 @@ var ant2 = undefined;
         else if (key.move == "A" && key_p != "D") key_p = "A"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         else if (key.move == "D" && key_p != "A") key_p = "D"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        var ct = Math.floor((energy >= 11?0:-(10-energy)*6));
+        var ct = Math.floor((energy >= 11?0:-(10-energy)*4));
         var color1 = "hsl(0, 96%, "+(40+ct)+"%)";
         var color2 = "#ef648f";
         var shadow1 = "#F20505";
-        var sc = 15;
+        var sc = (energy >= 11?15:(15-energy));
         for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
             if(status == "mode_blue"){
                     color1 = "#e0f1ff";
