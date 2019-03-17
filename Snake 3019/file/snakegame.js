@@ -13,7 +13,7 @@ var timebomb = 0;//เซตเวลาระเบิด
 var key = { //กำหนดตค่าปุ่มเริ่มต้น
     move:undefined
 }
-var randomtimeborn = [5, 6, 7];
+var randomtimeborn = [4, 5.5, 7];
 var randomtimestill = [9, 11,12];
 var rs = randomtimestill[Math.floor(Math.random() * randomtimestill.length)];
 var rb = randomtimeborn[Math.floor(Math.random() * randomtimeborn.length)];
@@ -60,6 +60,8 @@ var pclock = new Image();
 pclock.src = '../src/pic/energyball.png';
 var pshield = new Image();
 pshield.src = '../src/pic/shield.png';
+var p2shield = new Image();
+p2shield.src = '../src/pic/shield2.png';
 var numc = 0;
 var ant = undefined;
 var ant2 = undefined;
@@ -273,11 +275,18 @@ var ant2 = undefined;
             ctx.shadowBlur = 10; //ขนาดshadow
             ctx.drawImage(pclock,clock.x,clock.y,size,size);
         }
+        if (chktime == "on" && shield_fly == 'on'){
+            countshield = (countshield*10 + 0.1*10)/10;
+        }
         function drawShield(){//วาดไอเทม: โล่
             ctx.shadowColor = "aqua";
             ctx.shadowBlur = 10;
             ctx.fillStyle = "aqua";
-            ctx.drawImage(pshield,shield.x,shield.y,size,size);
+            if ((13 <= countshield && countshield <= 13.4)||(13.8 <= countshield && countshield <= 14.2)||(14.6 <= countshield && countshield <= 15)||(15.3 <= countshield && countshield <= 15.6)||(15.8 <= countshield && countshield <= 16)){
+                ctx.drawImage(p2shield,shield.x,shield.y,size,size);
+            }
+            else{
+                ctx.drawImage(pshield,shield.x,shield.y,size,size);}
                 if(shield.x  >= canvas.width-size || shield.x  <= 0){
                     if (!(chk_ShieldX_born && shield.x == 0)) dx = -dx; //แก้บัคxเกิดตำแหน่ง 0 แล้วขยับไม่ได้
                     chk_ShieldX_born = 0;
@@ -310,10 +319,8 @@ var ant2 = undefined;
             chk_ShieldY_born = 1;
             document.getElementById('bgm').pause();
         }
-        if (chktime == "on" && shield_fly == 'on'){
-            countshield = (countshield*10 + 0.1*10)/10;
-        }
-        if (countshield%16 == 0){
+        
+        if (countshield == 16){
             shield.x = undefined;
             shield.y = undefined;
             shield_p = 0;
@@ -413,7 +420,7 @@ var ant2 = undefined;
     drawFood();//เรียกฟังชั้นวาดอาหาร
     drawBomb();//เรียกฟังชั้นวาดระเบิด
     drawBoom();//เรียกฟังชั้นวาดแรงระเบิด
-    drawShield();//เรียกฟังก์ชันวาดไอเทม: โล่  [ ยังไม่สำเร็จ ]
+    drawShield();//เรียกฟังก์ชันวาดไอเทม: โล่ 
 
     long = snake.length; //หาขนาด Array งู
     updateScore();//เรียกฟังก์ชัน อัพเดทคะแนน
