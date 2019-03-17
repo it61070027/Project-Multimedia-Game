@@ -17,7 +17,7 @@ body{
     box-shadow: 0px 0px 20px #1FEA1F;
     background-color: #1F1F1F;
     position: absolute;
-    top: 3%;
+    top: 5%;
     left: 0;
     right: 0;
     margin: auto;
@@ -33,11 +33,10 @@ h2{
     font-size: 30px;
 }
 #www{
-    position: absolute;
+    position: relative;
+    margin-top: 650px;
     display:block;
-    margin: auto;
-    bottom: 5%;
-    left: 31%;
+    text-align: center;
     font-size: 50px;
 }
 #pressStart{
@@ -58,7 +57,7 @@ h2{
     left: 50%;
     width: 500px;
     height: 500px;
-    margin-top: -250px;
+    margin-top: -280px;
     margin-left: -250px;
 }
 #endGame{
