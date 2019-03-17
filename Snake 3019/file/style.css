@@ -14,7 +14,7 @@ body{
   }
 #myCanvas{
     border: 2px solid #1FD01F;
-    box-shadow: 0px 0px 20px #1FEA1F;
+    box-shadow: 0 0 5px rgb(28, 218, 28), 0 0 10px rgb(26, 216, 26),0px 0px 20px #1FEA1F,0px 0px 30px #1FEA1F;
     background-color: #1F1F1F;
     position: absolute;
     top: 3%;
@@ -30,15 +30,17 @@ h2{
     color: white;
     margin-left: 10px;
     font-family: 'Audiowide', cursive;
-    font-size: 30px;
+    font-size: 40px;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228DFF, 0 0 35px #228DFF, 0 0 40px #228DFF;
 }
 #www{
     right: 34%;
-    top: 80%;
+    top: 83%;
     position: fixed;
     display: block;
     text-align: center;
     font-size: 50px;
+    text-shadow:  0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FF1177, 0 0 30px #FF1177, 0 0 50px #FF1177, 0 0 60px #FF1177;
 }
 #pressStart{
     color: white;

@@ -13,8 +13,8 @@ var timebomb = 0;//เซตเวลาระเบิด
 var key = { //กำหนดตค่าปุ่มเริ่มต้น
     move:undefined
 }
-var randomtimeborn = [4, 5.5, 7];
-var randomtimestill = [9, 11,12];
+var randomtimeborn = [3.5, 4, 5, 7];
+var randomtimestill = [9, 11,12, 13];
 var rs = randomtimestill[Math.floor(Math.random() * randomtimestill.length)];
 var rb = randomtimeborn[Math.floor(Math.random() * randomtimeborn.length)];
 var countchage = 0;
@@ -138,14 +138,14 @@ var ant2 = undefined;
         var color1 = "#BF0404";
         var color2 = "#ef648f";
         var shadow1 = "#F20505";
-        var sc = 10;
+        var sc = 15;
         for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
             if(status == "mode_blue"){
                     color1 = "#e0f1ff";
                     color2 = color_p2[numc];
                     shadow1 = color_p[numc];
                     document.querySelector("body").style.backgroundImage = 'url("../src/pic/climax.gif")';
-                    sc = 20;
+                    sc = 25;
             }
             if (status == "cooldown"){
                     sound("cdtime");
@@ -200,7 +200,10 @@ var ant2 = undefined;
                 if((newx == snake[i].x && newy == snake[i].y)|| (newx == bomb.x && newy == bomb.y)){
                     //เช็คว่าอยู่ mode อมตะหรือไม่
                     if(status == "normal"){
-                        ctx.fillStyle = "green";
+                        ctx.fillStyle = "#ff7b01";
+                        ctx.shadowColor = "#ffb701";
+                        ctx.fillStyle = "#ffb701";
+                        ctx.shadowBlur = 30;
                         ctx.fillRect(snake[i].x, snake[i].y, size, size);
                         ctx.strokeRect(snake[i].x, snake[i].y, size, size);
                         died();
@@ -275,6 +278,7 @@ var ant2 = undefined;
         if (chktime == "on" && shield_fly == 'on'){
             countshield = (countshield*10 + 0.1*10)/10;
         }
+        console.log(countshield);
         function drawShield(){//วาดไอเทม: โล่
             ctx.shadowColor = "aqua";
             ctx.shadowBlur = 10;
@@ -297,6 +301,7 @@ var ant2 = undefined;
         }
         if(shield_p == 3){  //สุ่มตำแหน่ง Shield
             shield_p = 0;
+            countshield = 1;
             shield_fly = 'on';
             shield = this.space[Math.floor(Math.random() * this.space.length)];
             var chk_ShieldX_born = 1;
@@ -324,7 +329,6 @@ var ant2 = undefined;
             shield_fly = 'off';
             chk_ShieldX_born = 1;
             chk_ShieldY_born = 1;
-            countshield = 1;
         }
         if (chktime == "on"){
             count = (count*10 + 0.1*10) /10; // นับที่ละ 1 เพราะฟังชั่นdrawทำงานครั้งละ 1 วิ(ที่ต้องคูณ100เพราะ js บวก float มันกาก)
@@ -353,8 +357,14 @@ var ant2 = undefined;
                 if (bomb.x != undefined){
                     bombkill = "on";
                     sound("fire")   //เสียงระเบิด
+                    if (status != "mode_blue"){
+                    myCanvas.style.boxShadow = "0 0 20px rgb(28, 218, 28), 0 0 40px rgb(26, 216, 26),0px 0px 80px #1FEA1F,0px 0px 160px #1FEA1F"};
                 }
-                else bombkill = "off";
+                else {
+                    bombkill = "off";
+                    if (status != "mode_blue"){
+                    myCanvas.style.boxShadow = "0 0 5px rgb(28, 218, 28), 0 0 10px rgb(26, 216, 26),0px 0px 20px #1FEA1F,0px 0px 30px #1FEA1F";}
+                }
             }
             timebomb = (timebomb*10 + 0.1*10) /10;  //เวลาระเบิด
         }
@@ -363,7 +373,6 @@ var ant2 = undefined;
                 ctx.fillStyle = "#42ff00";
                 ctx.fillRect(snake[0].x, snake[0].y, size, size);
                 ctx.strokeRect(snake[0].x, snake[0].y, size, size);
-                console.log('www');
                 cc = 0;
                 died();
             }
