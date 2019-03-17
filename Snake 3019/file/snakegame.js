@@ -130,19 +130,6 @@ var ant2 = undefined;
             myCanvas.style.border= "2px solid #1FD01F";
             myCanvas.style.boxShadow= "0px 0px 20px #1FEA1F";
         }
-        if ((snake[0].x == bomb.x || snake[0].y == bomb.y) && bombkill == "on"){ //โดนระเบิดตาย
-            if(status == "normal"){
-                ctx.fillStyle = "#42ff00";
-                ctx.fillRect(snake[0].x, snake[0].y, size, size);
-                ctx.strokeRect(snake[0].x, snake[0].y, size, size);
-                console.log('www');
-                cc = 0;
-                died();
-            }
-            else if(status == "mode_blue"){
-                status = "cooldown";
-            }
-        }
         if (key.move == "W" && key_p != "S") key_p = "W"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         else if (key.move == "S" && key_p != "W" && key_p != undefined) key_p = "S"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
         else if (key.move == "A" && key_p != "D") key_p = "A"; //เช็คปุ่มและป้องกันการเดินถอยหลัง
@@ -244,6 +231,7 @@ var ant2 = undefined;
             y:newy
         })
         }
+    
         var r = "hsl("+(-10+(timebomb*10))+",100%, 50%)"
         function drawBomb(){ //ฟังชั้นวาดระเบิด
             if(timebomb >= 4){
@@ -370,6 +358,19 @@ var ant2 = undefined;
             }
             timebomb = (timebomb*10 + 0.1*10) /10;  //เวลาระเบิด
         }
+        if ((snake[0].x == bomb.x || snake[0].y == bomb.y) && bombkill == "on"){ //โดนระเบิดตาย
+            if(status == "normal"){
+                ctx.fillStyle = "#42ff00";
+                ctx.fillRect(snake[0].x, snake[0].y, size, size);
+                ctx.strokeRect(snake[0].x, snake[0].y, size, size);
+                console.log('www');
+                cc = 0;
+                died();
+            }
+            else if(status == "mode_blue"){
+                status = "cooldown";
+            }
+        }
         if (bombkill == "on"){
             for (let i = 1; i < snake.length; i++){ //เช็คว่างูชนรึยัง
                 if(bomb.x == snake[i].x || bomb.y == snake[i].y){
@@ -378,11 +379,13 @@ var ant2 = undefined;
                         snake = snake.slice(0, i);}
                         max_energy = (cc?(snake.length-1)*10:max_energy);
                         if (max_energy == 0){
+                            updateMaxEnergy();
                             updateEnergy();
                             youDied.innerText = "Energy Out!!";
                             died();
                         }
                         updateMaxEnergy();
+                        updateEnergy();
                     }
                     else{
                         status = "cooldown";
