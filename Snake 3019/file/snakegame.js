@@ -231,7 +231,7 @@ var ant2 = undefined;
             y:newy
         })
         }
-    
+
         var r = "hsl("+(-10+(timebomb*10))+",100%, 50%)"
         function drawBomb(){ //ฟังชั้นวาดระเบิด
             if(timebomb >= 4){
@@ -316,7 +316,7 @@ var ant2 = undefined;
             chk_ShieldY_born = 1;
             document.getElementById('bgm').pause();
         }
-        
+
         if (countshield == 16){
             shield.x = undefined;
             shield.y = undefined;
@@ -441,7 +441,7 @@ var ant2 = undefined;
     drawFood();//เรียกฟังชั้นวาดอาหาร
     drawBomb();//เรียกฟังชั้นวาดระเบิด
     drawBoom();//เรียกฟังชั้นวาดแรงระเบิด
-    drawShield();//เรียกฟังก์ชันวาดไอเทม: โล่ 
+    drawShield();//เรียกฟังก์ชันวาดไอเทม: โล่
 
     long = snake.length; //หาขนาด Array งู
     updateScore();//เรียกฟังก์ชัน อัพเดทคะแนน
@@ -469,6 +469,7 @@ var ant2 = undefined;
             // ถ้าหมดเวลา
             else{
                 youDied.innerText = "Energy Out!!";
+                document.getElementById('youDied').style.fontSize = '135px';
                 died();
             }
         },1000)
