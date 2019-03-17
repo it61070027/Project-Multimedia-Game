@@ -8,10 +8,10 @@ body{
     background-size: cover;
 }
 @font-face {
-    font-family: 'Space age';
-    src: url('../src/fonts/spaceage.ttf'),
-}
-
+    font-family: spaceage;
+    src: local(spaceage), url("../src/fonts/spaceage.otf");
+    /*src: url(../src/fonts/spaceage.ttf);*/
+  }
 #myCanvas{
     border: 2px solid #1FD01F;
     box-shadow: 0px 0px 20px #1FEA1F;
@@ -29,14 +29,15 @@ body{
 h2{
     color: white;
     margin-left: 10px;
-    font-family: 'Space age', 'Monoton', Tahoma, Sans-Serif;
+    font-family: 'Audiowide', cursive;
     font-size: 30px;
 }
 #www{
-    position: relative;
-    margin-top: 650px;
+    position: absolute;
     display:block;
-    text-align: center;
+    margin: auto;
+    bottom: 5%;
+    left: 31%;
     font-size: 50px;
 }
 #pressStart{
@@ -64,14 +65,14 @@ h2{
     position: relative;
     bottom: 150px;
     width: 1080px;
-    height: 700px;
+    height: 695px;
     display: none;
     background-image: url(../src/pic/snake_grey.gif);
     background-repeat: no-repeat;
     background-size: contain;
     border-color: rgb(253, 253, 253);
     border-style: solid;
-    border-width: 7px;
+    border-width: 10px;
     transition: 1s;
     animation-name: ani;
     animation-duration: 1.5s;
