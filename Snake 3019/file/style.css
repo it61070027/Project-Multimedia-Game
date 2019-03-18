@@ -137,5 +137,25 @@ button:hover{
     to {bottom:150px;}
 }
 #itembox{
-    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    width: 250px;
+    height: 250px;
+    top: 100px;
+}
+.item{
+    display: inline-block;
+    margin-top:15px;
+    margin-left: 30px;
+}
+.txtitem{
+    display: inline-block;
+    position: fixed;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+    color: white;
+    text-shadow:  0 0 10px rgb(217, 1, 255), 0 0 20px rgba(255, 3, 221, 0.658), 0 0 30px rgb(255, 104, 104), 0 0 30px rgba(255, 0, 0, 0.829);
+    margin-top: 25px;
+    margin-left: 30px;
 }
