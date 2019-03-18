@@ -283,7 +283,6 @@ p2shield.src = '../src/pic/shield2.png';
         if (chktime == "on" && shield_fly == 'on'){
             countshield = (countshield*10 + 0.1*10)/10;
         }
-        console.log(countshield);
         function drawShield(){//วาดไอเทม: โล่
             ctx.shadowColor = "aqua";
             ctx.shadowBlur = 10;
@@ -331,6 +330,7 @@ p2shield.src = '../src/pic/shield2.png';
             shield.x = undefined;
             shield.y = undefined;
             shield_p = 0;
+            countshield = 1;
             shield_fly = 'off';
             chk_ShieldX_born = 1;
             chk_ShieldY_born = 1;
@@ -451,7 +451,6 @@ p2shield.src = '../src/pic/shield2.png';
         if(energy < 1) sound("flat");
         else if(energy <= 5){
             countcolor = (countcolor*10 + 0.1*10) /10;
-            console.log("5 : "+countcolor);
             if((countcolor*10)%2 == 0){
                 sound("beep");
                 www.style.textShadow = "0 0 10px #fff";}
@@ -461,7 +460,6 @@ p2shield.src = '../src/pic/shield2.png';
         }
         else if(energy <= 10){
             countcolor = (countcolor*10 + 0.1*10) /10;
-            console.log(countcolor);
             if((countcolor*10)%3 == 0){
                 sound("beep1");
                 www.style.textShadow = "0 0 10px #fff";}
@@ -528,7 +526,6 @@ p2shield.src = '../src/pic/shield2.png';
     function died(){    //ฟังก์ชันตาย
         sound("gameover");  //เสียง Gameovers
         chktime = "off";
-        console.log("DIED!!!");
         document.getElementById('endGame').style.display = 'block'; //แสดงหน้า endGame ที่ซ่อนไว้
         total.innerText = high;     //คะแนน HighScore
         final.innerText = long-1;   //คะแนน FinalScore
