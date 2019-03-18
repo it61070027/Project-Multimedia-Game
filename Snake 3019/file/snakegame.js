@@ -67,6 +67,7 @@ p2shield.src = '../src/pic/shield2.png';
 var numc = 0;
 var ant = undefined;
 var ant2 = undefined;
+var countneon = 0;
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'D') {
@@ -82,13 +83,11 @@ var ant2 = undefined;
             sound("blue");
         }
         else if (key == ']'){
-            energy -= 10;
+            energy -= 5;
             energy = (energy > max_energy?max_energy:energy);
             updateEnergy();
         }
-        else if (key == 'V'){
-            localStorage.clear();
-        }
+
     }
     sound("bgm");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -140,29 +139,64 @@ var ant2 = undefined;
         var color2 = "#ef648f";
         var shadow1 = "#F20505";
         var sc = (energy >= 11?15:(15-energy));
-        for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
-            if(status == "mode_blue"){
-                    color1 = "#e0f1ff";
-                    color2 = color_p2[numc];
-                    shadow1 = color_p[numc];
-                    document.querySelector("body").style.backgroundImage = 'url("../src/pic/climax.gif")';
-                    sc = 25;
-            }
-            if (status == "cooldown"){
-                    sound("cdtime");
-                    document.getElementById('blue').pause();    //Pause เสียง Mode Blue
-                    if((0 <= countchage && countchage <= 0.4) || (0.8 <= countchage && countchage <= 1.2) || (1.6 <= countchage && countchage <= 2) || (2 <= countchage && countchage <= 2.4) || (2.8 <= countchage && countchage <= 3)){
-                        color1 = "pink";
-                        color2 = "#ef648f";
-                        //blink++;
+        if(status == "mode_blue"){
+            if (energy <= 10){
+                color1 = "#e0f1ff";
+                color2 = color_p2[numc];
+                shadow1 = color_p[numc];
+                countneon = (countneon*10 + 0.1*10)/10;
+                console.log(countneon);
+                if (energy < 1){
+                    sc = 0;
+                }
+                else if (energy <= 5){
+                    if (countneon > 0.2){
+                        countneon = 0;
+                    }
+                    if (0.2 <= countneon <= 0.4){
+                        sc =0;
                     }
                     else{
-
-                        color1 = "#BA01FF";
-                        color2 = "#ef648f";
-                        //blink++;
+                        sc = 180;
                     }
+                }
+                else{
+                    if (countneon > 0.6){
+                        countneon = 0;
+                    }
+                    if(0.3 <= countneon <= 0.6){
+                        sc = 0;
+                    }
+                    else{
+                        sc = 140;
+                    }
+                }
             }
+            else{
+                countneon = 0;
+                color1 = "#e0f1ff";
+                color2 = color_p2[numc];
+                shadow1 = color_p[numc];
+                document.querySelector("body").style.backgroundImage = 'url("../src/pic/climax.gif")';
+                sc = 25;
+            }    
+        }
+        if (status == "cooldown"){
+            sound("cdtime");
+            document.getElementById('blue').pause();    //Pause เสียง Mode Blue
+            if((0 <= countchage && countchage <= 0.4) || (0.8 <= countchage && countchage <= 1.2) || (1.6 <= countchage && countchage <= 2) || (2 <= countchage && countchage <= 2.4) || (2.8 <= countchage && countchage <= 3)){
+                color1 = "pink";
+                color2 = "#ef648f";
+                //blink++;
+            }
+            else{
+
+                color1 = "#BA01FF";
+                color2 = "#ef648f";
+                //blink++;
+            }
+    }
+        for (let i = 0; i < snake.length; i++ ){ //สร้างงูที่อยู่ในarray
                 ctx.shadowColor = shadow1; //สีshadow
                 ctx.shadowBlur = sc; //ขนาดshadow
                 ctx.fillStyle = color1; //สี
