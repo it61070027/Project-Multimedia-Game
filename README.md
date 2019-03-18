@@ -13,6 +13,5 @@
 - [x] Game Interface
 - [x] End Screen<br><br>
 ### Optional
-- [ ] Leaderboard
-- [ ] Maximum Energy
+- [x] Maximum Energy
 
