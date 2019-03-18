@@ -506,7 +506,7 @@ p2shield.src = '../src/pic/shield2.png';
             // ถ้าหมดเวลา
             else{
                 youDied.innerText = "Energy Out!!";
-                document.getElementById('youDied').style.fontSize = '133px';
+                document.getElementById('youDied').style.fontSize = '120px';
                 died();
             }
         },1000)
