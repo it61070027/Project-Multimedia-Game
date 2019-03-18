@@ -54,6 +54,11 @@ var countshield = 1;
 var status = "normal";  //สถานะงู [ normal | blue | cooldown ]
 var blueCount = 5;
 var blink = 0;
+var numc = 0;
+var ant = undefined;
+var ant2 = undefined;
+
+/* Insert Picture Here! */
 var pbombr = new Image();
 pbombr.src = '../src/pic/bmbr.png';
 var pbomb = new Image();
@@ -64,9 +69,7 @@ var pshield = new Image();
 pshield.src = '../src/pic/shield.png';
 var p2shield = new Image();
 p2shield.src = '../src/pic/shield2.png';
-var numc = 0;
-var ant = undefined;
-var ant2 = undefined;
+
     window.onkeyup = function(event) {
         let key = event.key.toUpperCase();
         if ( key == 'W' || key == 'A' || key == 'D') {
@@ -90,7 +93,7 @@ var ant2 = undefined;
             localStorage.clear();
         }
     }
-    sound("bgm");
+    //sound("bgm");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 1; i <= 3; i++){ //สร้างพิกัดจุดงูเริ่มต้นซึ่งมี4จุด เพราะมี4บล็อค
         snake.push({
@@ -405,7 +408,6 @@ var ant2 = undefined;
             }
         }
 
-
         if (chktime == "on"){
             clockcount = (clockcount*10 + 0.1*10)/10;
         }
@@ -504,7 +506,7 @@ var ant2 = undefined;
             // ถ้าหมดเวลา
             else{
                 youDied.innerText = "Energy Out!!";
-                document.getElementById('youDied').style.fontSize = '120px';
+                document.getElementById('youDied').style.fontSize = '133px';
                 died();
             }
         },1000)
@@ -513,20 +515,10 @@ var ant2 = undefined;
         // แสดงเวลา
         energy = (energy > max_energy?max_energy:energy);
         Energy.innerText = energy;
-
-        // ถ้าหมดเวลา ให้บอก
-        // if (time == 0) {
-        //     status.innerHTML = "Gmae Over!!! <a href='#!' onclick='ready()'>play again</a>";
-        // }
     }
     function updateMaxEnergy(){
         // แสดงเวลา
         maxEnergy.innerText = max_energy;
-
-        // ถ้าหมดเวลา ให้บอก
-        // if (time == 0) {
-        //     status.innerHTML = "Gmae Over!!! <a href='#!' onclick='ready()'>play again</a>";
-        // }
     }
     function highScore(){   //ฟังก์ชั่นเก็บ HighScore
         if((long-1) > high){
