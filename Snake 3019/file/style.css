@@ -136,3 +136,6 @@ button:hover{
     from {bottom:1000px;}
     to {bottom:150px;}
 }
+#itembox{
+    background-color: rgba(0, 0, 0, 0.3);
+}
